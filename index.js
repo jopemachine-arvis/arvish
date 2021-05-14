@@ -10,6 +10,20 @@ const CacheConf = require('cache-conf');
 
 const arvis = module.exports;
 
+const getEnv = key => process.env[`arvis_${key}`];
+
+arvis.meta = {
+  name: getEnv('workflow_name'),
+  version: getEnv('workflow_version'),
+  uid: getEnv('workflow_uid'),
+  bundleId: getEnv('workflow_bundleid')
+};
+
+arvis.env = {
+  data: getEnv('workflow_data'),
+  cache: getEnv('workflow_cache'),
+};
+
 arvis.input = process.argv[2];
 
 arvis.output = (items, { rerunInterval, variables } = {}) => {
@@ -54,7 +68,7 @@ ${stack}
 
 -
 ${arvis.meta.name} ${arvis.meta.version}
-Alfred ${arvis.alfred.version}
+Arvis
 ${process.platform} ${os.release()}
 	`.trim();
 
@@ -67,20 +81,17 @@ ${process.platform} ${os.release()}
         copy,
         largetype: stack,
       },
-      icon: {
-        path: exports.icon.error,
-      },
     },
   ]);
 };
 
 arvis.config = new Conf({
-  cwd: arvis.alfred.data,
+  cwd: arvis.env.data,
 });
 
 arvis.cache = new CacheConf({
   configName: 'cache',
-  cwd: arvis.alfred.cache,
+  cwd: arvis.env.cache,
   version: arvis.meta.version,
 });
 

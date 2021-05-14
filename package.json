@@ -13,7 +13,8 @@
 		"index.js"
 	],
 	"keywords": [
-		"arvis"
+		"arvis",
+		"arvis-workflow"
 	],
 	"dependencies": {
 		"cache-conf": "^0.6.0",
