@@ -181,8 +181,6 @@ Type: `Error | string`
 
 Error or error message to be displayed.
 
-<img src="media/screenshot-error.png" width="694">
-
 #### fetch(url, options?)
 
 Returns a `Promise` that returns the body of the response.
