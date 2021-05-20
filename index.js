@@ -8,31 +8,39 @@ const cleanStack = require('clean-stack');
 const dotProp = require('dot-prop');
 const CacheConf = require('cache-conf');
 
-const arvis = module.exports;
+const arvish = module.exports;
 
 const getEnv = key => process.env[`arvis_${key}`];
 
-arvis.meta = {
-  name: getEnv('workflow_name'),
-  version: getEnv('workflow_version'),
-  uid: getEnv('workflow_uid'),
-  bundleId: getEnv('workflow_bundleid')
+arvish.meta = {
+  name: getEnv('extension_name'),
+  version: getEnv('extension_version'),
+  uid: getEnv('extension_uid'),
+  bundleId: getEnv('extension_bundleid')
 };
 
-arvis.env = {
-  data: getEnv('workflow_data'),
-  cache: getEnv('workflow_cache'),
+arvish.env = {
+  data: getEnv('extension_data'),
+  cache: getEnv('extension_cache'),
 };
 
-arvis.input = process.argv[2];
+arvish.input = process.argv[2];
 
-arvis.output = (items, { rerunInterval, variables } = {}) => {
-  console.log(
-    JSON.stringify({ items, rerun: rerunInterval, variables }, null, '\t')
-  );
+arvish.output = (items, { rerunInterval, variables, print } = { print: true }) => {
+  if (print) {
+    console.log(
+      JSON.stringify({ items, rerun: rerunInterval, variables }, null, '\t')
+    );
+  }
+
+  return {
+    items,
+    rerunInterval,
+    variables
+  };
 };
 
-arvis.matches = (input, list, item) => {
+arvish.matches = (input, list, item) => {
   input = input.toLowerCase().normalize();
 
   return list.filter((x) => {
@@ -52,14 +60,16 @@ arvis.matches = (input, list, item) => {
   });
 };
 
-arvis.inputMatches = (list, item) => arvis.matches(arvis.input, list, item);
+arvish.inputMatches = (list, item) => arvish.matches(arvish.input, list, item);
 
-arvis.log = (text) => {
+arvish.log = (text) => {
   console.error(text);
 };
 
-arvis.error = (error) => {
+arvish.error = (error) => {
   const stack = cleanStack(error.stack || error);
+  const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctl L';
+  const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctl C';
 
   const copy = `
 \`\`\`
@@ -67,15 +77,15 @@ ${stack}
 \`\`\`
 
 -
-${arvis.meta.name} ${arvis.meta.version}
-Arvis
+${arvish.meta.name} ${arvish.meta.version}
+arvish
 ${process.platform} ${os.release()}
 	`.trim();
 
-  arvis.output([
+  arvish.output([
     {
       title: error.stack ? `${error.name}: ${error.message}` : error,
-      subtitle: 'Press ⌘L to see the full error and ⌘C to copy it.',
+      subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
       valid: false,
       text: {
         copy,
@@ -85,17 +95,17 @@ ${process.platform} ${os.release()}
   ]);
 };
 
-arvis.config = new Conf({
-  cwd: arvis.env.data,
+arvish.config = new Conf({
+  cwd: arvish.env.data,
 });
 
-arvis.cache = new CacheConf({
+arvish.cache = new CacheConf({
   configName: 'cache',
-  cwd: arvis.env.cache,
-  version: arvis.meta.version,
+  cwd: arvish.env.cache,
+  version: arvish.meta.version,
 });
 
-arvis.fetch = async (url, options) => {
+arvish.fetch = async (url, options) => {
   options = {
     json: true,
     ...options,
@@ -119,9 +129,9 @@ arvis.fetch = async (url, options) => {
 
   const rawKey = url + JSON.stringify(options);
   const key = rawKey.replace(/\./g, '\\.');
-  const cachedResponse = arvis.cache.get(key, { ignoreMaxAge: true });
+  const cachedResponse = arvish.cache.get(key, { ignoreMaxAge: true });
 
-  if (cachedResponse && !arvis.cache.isExpired(key)) {
+  if (cachedResponse && !arvish.cache.isExpired(key)) {
     return Promise.resolve(cachedResponse);
   }
 
@@ -141,12 +151,12 @@ arvis.fetch = async (url, options) => {
     : response.body;
 
   if (options.maxAge) {
-    arvis.cache.set(key, data, { maxAge: options.maxAge });
+    arvish.cache.set(key, data, { maxAge: options.maxAge });
   }
 
   return data;
 };
 
-loudRejection(arvis.error);
-process.on('uncaughtException', arvis.error);
-hookStd.stderr(arvis.error);
+loudRejection(arvish.error);
+process.on('uncaughtException', arvish.error);
+hookStd.stderr(arvish.error);

@@ -1,6 +1,6 @@
-# Arvis-workflow-tools
+# Arvish
 
-Some tools that helps you create arvis-workflow more easily.
+Lib that helps you create arvis workflow, plugin more easily.
 
 Forked from [alfy](https://github.com/sindresorhus/alfy).
 
@@ -9,11 +9,11 @@ Forked from [alfy](https://github.com/sindresorhus/alfy).
 Here we fetch some JSON from a placeholder API and present matching items to the user:
 
 ```js
-const alfy = require('arvis-workflow-tools');
+const arvish = require('arvish');
 
-const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
+const data = await arvish.fetch('https://jsonplaceholder.typicode.com/posts');
 
-const items = alfy
+const items = arvish
 	.inputMatches(data, 'title')
 	.map(element => ({
 		title: element.title,
@@ -21,7 +21,7 @@ const items = alfy
 		arg: element.id
 	}));
 
-alfy.output(items);
+arvish.output(items);
 ```
 
 ## API
@@ -69,7 +69,7 @@ A script can be set to re-run automatically after some interval. The script will
 For example, it could be used to update the progress of a particular task:
 
 ```js
-alfy.output(
+arvish.output(
 	[
 		{
 			title: 'Downloading Unicorns…',
@@ -94,7 +94,7 @@ Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/wor
 Returns an `string[]` of items in `list` that case-insensitively contains `input`.
 
 ```js
-alfy.matches('Corn', ['foo', 'unicorn']);
+arvish.matches('Corn', ['foo', 'unicorn']);
 //=> ['unicorn']
 ```
 
@@ -128,7 +128,7 @@ const list = [
 	}
 ];
 
-alfy.matches('Unicorn', list, 'title');
+arvish.matches('Unicorn', list, 'title');
 //=> [{title: 'unicorn'}]
 ```
 
@@ -150,7 +150,7 @@ const list = [
 	}
 ];
 
-alfy.matches('sindre', list, 'name.first');
+arvish.matches('sindre', list, 'name.first');
 //=> [{name: {first: 'Sindre', last: 'Sorhus'}}]
 ```
 
@@ -161,7 +161,7 @@ const list = ['foo', 'unicorn'];
 
 // Here we do an exact match.
 // `Foo` matches the item since it's lowercased for you.
-alfy.matches('Foo', list, (item, input) => item === input);
+arvish.matches('Foo', list, (item, input) => item === input);
 //=> ['foo']
 ```
 
@@ -217,7 +217,7 @@ Type: `Function`
 Transform the response before it gets cached.
 
 ```js
-await alfy.fetch('https://api.foo.com', {
+await arvish.fetch('https://api.foo.com', {
 	transform: body => {
 		body.foo = 'bar';
 		return body;
@@ -233,7 +233,7 @@ const pify = require('pify');
 
 const parseString = pify(xml2js.parseString);
 
-await alfy.fetch('https://api.foo.com', {
+await arvish.fetch('https://api.foo.com', {
 	transform: body => parseString(body)
 })
 ```
@@ -249,9 +249,9 @@ Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with 
 Example:
 
 ```js
-alfy.config.set('unicorn', '🦄');
+arvish.config.set('unicorn', '🦄');
 
-alfy.config.get('unicorn');
+arvish.config.get('unicorn');
 //=> '🦄'
 ```
 
@@ -266,9 +266,9 @@ Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instan
 Example:
 
 ```js
-alfy.cache.set('unicorn', '🦄');
+arvish.cache.set('unicorn', '🦄');
 
-alfy.cache.get('unicorn');
+arvish.cache.get('unicorn');
 //=> '🦄'
 ```
 
@@ -282,15 +282,15 @@ Example:
 ```js
 const delay = require('delay');
 
-alfy.cache.set('foo', 'bar', {maxAge: 5000});
+arvish.cache.set('foo', 'bar', {maxAge: 5000});
 
-alfy.cache.get('foo');
+arvish.cache.get('foo');
 //=> 'bar'
 
 // Wait 5 seconds
 await delay(5000);
 
-alfy.cache.get('foo');
+arvish.cache.get('foo');
 //=> undefined
 ```
 
@@ -312,8 +312,8 @@ Example:
 
 ##### data
 
-Recommended location for non-volatile data. Just use `alfy.data` which uses this path.
+Recommended location for non-volatile data. Just use `arvish.data` which uses this path.
 
 ##### cache
 
-Recommended location for volatile data. Just use `alfy.cache` which uses this path.
+Recommended location for volatile data. Just use `arvish.cache` which uses this path.

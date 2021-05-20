@@ -1,7 +1,7 @@
 {
-	"name": "arvis-workflow-tools",
+	"name": "arvish",
 	"version": "0.0.1",
-	"description": "Arvis workflow tools",
+	"description": "Arvis workflow, plugin creator tools",
 	"license": "MIT",
 	"engines": {
 		"node": ">=8"
@@ -14,7 +14,8 @@
 	],
 	"keywords": [
 		"arvis",
-		"arvis-workflow"
+		"arvis-workflow",
+		"arvis-plugin"
 	],
 	"dependencies": {
 		"cache-conf": "^0.6.0",
