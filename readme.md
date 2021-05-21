@@ -45,7 +45,7 @@ List of `object` with any of the [supported properties](https://www.alfredapp.co
 Example:
 
 ```js
-alfy.output([
+arvish.output([
 	{
 		title: 'Unicorn'
 	},
@@ -167,13 +167,13 @@ arvish.matches('Foo', list, (item, input) => item === input);
 
 #### inputMatches(list, item?)
 
-Same as `matches()`, but with `alfy.input` as `input`.
+Same as `matches()`, but with `arvish.input` as `input`.
 
 #### error(error)
 
 Display an error or error message in Alfred.
 
-**Note:** You don't need to `.catch()` top-level promises. Alfy handles that for you.
+**Note:** You don't need to `.catch()` top-level promises. Arvish handles that for you.
 
 ##### error
 
