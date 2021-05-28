@@ -2,14 +2,15 @@
 	"name": "arvish",
 	"version": "0.0.1",
 	"description": "Arvis workflow, plugin creator tools",
-	"bin": "cli.js",
-	"main": "index.js",
+	"bin": "dist/cli/main.js",
+	"main": "dist/index.js",
 	"license": "MIT",
 	"engines": {
-		"node": ">=8"
+		"node": ">=12"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava",
+		"build": "tsc"
 	},
 	"files": [
 		"index.js"
@@ -19,6 +20,9 @@
 		"arvis-workflow",
 		"arvis-plugin"
 	],
+	"bugs": {
+		"url": "https://github.com/jopemachine/arvish"
+	},
 	"dependencies": {
 		"archiver": "^5.3.0",
 		"cache-conf": "^0.6.0",
@@ -29,13 +33,16 @@
 		"got": "^9.3.2",
 		"hook-std": "^2.0.0",
 		"loud-rejection": "^2.1.0",
-		"meow": "^10.0.0"
+		"meow": "^9.0.0"
 	},
 	"devDependencies": {
+		"@types/archiver": "^5.1.0",
+		"@types/got": "^9.6.11",
 		"ava": "^2.3.0",
 		"delay": "^4.3.0",
 		"nock": "^10.0.2",
 		"tempfile": "^3.0.0",
+		"typescript": "^4.3.2",
 		"xo": "^0.24.0"
 	}
 }
