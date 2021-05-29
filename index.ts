@@ -1,4 +1,4 @@
-'use strict';
+#!/usr/bin/env node
 import os from 'os';
 import Conf from 'conf';
 import got from 'got';
