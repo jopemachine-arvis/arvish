@@ -73,8 +73,8 @@ const arvish = {
    */
   error: (error: any) => {
     const stack = cleanStack(error.stack?.toString() || error.message);
-    const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctl L';
-    const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctl C';
+    const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctrl + L';
+    const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctrl + C';
 
     const copy = `
 \`\`\`

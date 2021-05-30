@@ -37,7 +37,8 @@
 		"got": "^9.3.2",
 		"hook-std": "^2.0.0",
 		"loud-rejection": "^2.1.0",
-		"meow": "^9.0.0"
+		"meow": "^9.0.0",
+		"arvis-plist-converter": "../arvis-plist-converter"
 	},
 	"devDependencies": {
 		"@types/archiver": "^5.1.0",

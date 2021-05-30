@@ -7,6 +7,7 @@ import { zipExtensionFolder } from './zip';
 import path from 'path';
 import chalk from 'chalk';
 import { checkFileExists, error } from './utils';
+import convert from 'arvis-plist-converter';
 
 /**
  * @param  {string[]} input
@@ -27,18 +28,37 @@ const cliFunc = async (input: string[], flags?: any) => {
     }
 
     case 'zip':
-      if (
-        await checkFileExists(`${process.cwd()}${path.sep}arvis-workflow.json`)
-      ) {
-        await zipExtensionFolder('workflow');
-      } else if (
-        await checkFileExists(`${process.cwd()}${path.sep}arvis-plugin.json`)
-      ) {
-        await zipExtensionFolder('plugin');
+      if (input[1] && input[2]) {
+        if (input[2] !== 'workflow' && input[2] !== 'plugin') {
+          error("Error: Specify second argument as 'workflow' or 'plugin'");
+          return;
+        }
+
+        await zipExtensionFolder(input[2], input[1]);
       } else {
-        error(
-          "Error: It seems that current directoy is not arvis extension's directory"
-        );
+        if (
+          await checkFileExists(
+            `${process.cwd()}${path.sep}arvis-workflow.json`
+          )
+        ) {
+          await zipExtensionFolder(process.cwd(), 'workflow');
+        } else if (
+          await checkFileExists(`${process.cwd()}${path.sep}arvis-plugin.json`)
+        ) {
+          await zipExtensionFolder(process.cwd(), 'plugin');
+        } else {
+          error(
+            "Error: It seems that current directoy is not arvis extension's directory"
+          );
+        }
+      }
+      break;
+
+    case 'convert':
+      if (input[1]) {
+        await convert(input[1]);
+      } else {
+        await convert(`${process.cwd()}${path.sep}info.plist`);
       }
       break;
   }
