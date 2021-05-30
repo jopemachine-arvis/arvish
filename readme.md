@@ -4,8 +4,6 @@ Lib that helps you create [Arvis](https://github.com/jopemachine/arvis) `workflo
 
 (Not necessary for extension creation).
 
-Forked from [alfy](https://github.com/sindresorhus/alfy).
-
 ## Composition
 
 Arvish has both the Cli tools and js libraries needed to create `extension`
@@ -16,3 +14,17 @@ Check each of the below documents.
 
 * [Library](./documents/lib.md)
 
+## alfy
+
+This library is forked from [alfy](https://github.com/sindresorhus/alfy).
+
+So, It has almost same programmatic API with `alfy`.
+
+This means maybe you can simply replace alfred-workflows written in `alfy` with `arvish`.
+
+Note that `arvish` not support below features yet.
+
+* `top-await`
+* `alfred-notifier`
+* `alfred-link`
+* `alfred-update`
