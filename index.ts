@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-import os from 'os';
 import Conf from 'conf';
+import CacheConf from 'cache-conf';
+import ConfMock from './external/confMock';
+import os from 'os';
 import got from 'got';
 import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
-import CacheConf from 'cache-conf';
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
@@ -158,7 +159,6 @@ ${process.platform} ${os.release()}
   meta: {
     name: getEnv('extension_name'),
     version: getEnv('extension_version'),
-    uid: getEnv('extension_uid'),
     bundleId: getEnv('extension_bundleid')
   },
 
@@ -174,7 +174,7 @@ ${process.platform} ${os.release()}
     ? new Conf({
         cwd: getEnv('extension_data')
       })
-    : {},
+    : new ConfMock(),
 
   cache: getEnv('extension_cache')
     ? new CacheConf({
@@ -182,7 +182,7 @@ ${process.platform} ${os.release()}
         cwd: getEnv('extension_cache'),
         version: getEnv('extension_version')
       })
-    : {}
+    : new ConfMock()
 };
 
 loudRejection(arvish.error);
