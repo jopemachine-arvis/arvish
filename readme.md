@@ -1,6 +1,6 @@
 # Arvish
 
-Lib that helps you create arvis workflow, plugin more easily.
+Lib that helps you create [Arvis](https://github.com/jopemachine/arvis) `workflow`, `plugin` more easily.
 
 Forked from [alfy](https://github.com/sindresorhus/alfy).
 

@@ -8,70 +8,74 @@ import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
 import CacheConf from 'cache-conf';
 
-const arvish = module.exports;
-
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
-arvish.meta = {
-  name: getEnv('extension_name'),
-  version: getEnv('extension_version'),
-  uid: getEnv('extension_uid'),
-  bundleId: getEnv('extension_bundleid')
-};
+const arvish = {
+  /**
+   * @param  {object} items
+   * @param  {{rerunInterval?:number;variables?:object}={}} options
+   */
+  output: (
+    items: object,
+    options: { rerunInterval?: number; variables?: object } = {}
+  ) => {
+    console.log(
+      JSON.stringify(
+        { items, rerun: options.rerunInterval, variables: options.variables },
+        null,
+        '\t'
+      )
+    );
+  },
 
-arvish.env = {
-  data: getEnv('extension_data'),
-  cache: getEnv('extension_cache')
-};
+  /**
+   * @param  {string} input
+   * @param  {any} list
+   * @param  {string|Function} item
+   */
+  matches: (input: string, list: any, item: string | Function) => {
+    input = input.toLowerCase().normalize();
 
-arvish.input = process.argv[2];
+    return list.filter((x: any) => {
+      if (typeof item === 'string') {
+        x = dotProp.get(x, item);
+      }
 
-arvish.output = (
-  items: object,
-  options: { rerunInterval?: number; variables?: object } = {}
-) => {
-  console.log(
-    JSON.stringify(
-      { items, rerun: options.rerunInterval, variables: options.variables },
-      null,
-      '\t'
-    )
-  );
-};
+      if (typeof x === 'string') {
+        x = x.toLowerCase();
+      }
 
-arvish.matches = (input: string, list: any, item: string | Function) => {
-  input = input.toLowerCase().normalize();
+      if (typeof item === 'function') {
+        return item(x, input);
+      }
 
-  return list.filter((x: any) => {
-    if (typeof item === 'string') {
-      x = dotProp.get(x, item);
-    }
+      return x.includes(input);
+    });
+  },
 
-    if (typeof x === 'string') {
-      x = x.toLowerCase();
-    }
+  /**
+   * @param  {string[]} list
+   * @param  {string|Function} item
+   */
+  inputMatches: (list: string[], item: string | Function) =>
+    arvish.matches(arvish.input, list, item),
 
-    if (typeof item === 'function') {
-      return item(x, input);
-    }
+  /**
+   * @param  {string} text
+   */
+  log: (text: string) => {
+    console.error(text);
+  },
 
-    return x.includes(input);
-  });
-};
+  /**
+   * @param  {any} error
+   */
+  error: (error: any) => {
+    const stack = cleanStack(error.stack?.toString() || error.message);
+    const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctl L';
+    const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctl C';
 
-arvish.inputMatches = (list: string[], item: string | Function) =>
-  arvish.matches(arvish.input, list, item);
-
-arvish.log = (text: string) => {
-  console.error(text);
-};
-
-arvish.error = (error: Error) => {
-  const stack = cleanStack(error.stack?.toString() || error.message);
-  const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctl L';
-  const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctl C';
-
-  const copy = `
+    const copy = `
 \`\`\`
 ${stack}
 \`\`\`
@@ -82,85 +86,107 @@ arvish
 ${process.platform} ${os.release()}
 	`.trim();
 
-  arvish.output([
-    {
-      title: error.stack ? `${error.name}: ${error.message}` : error,
-      subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
-      valid: false,
-      text: {
-        copy,
-        largetype: stack
+    arvish.output([
+      {
+        title: error.stack ? `${error.name}: ${error.message}` : error,
+        subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
+        valid: false,
+        text: {
+          copy,
+          largetype: stack
+        }
       }
-    }
-  ]);
-};
+    ]);
+  },
 
-if (arvish.env.data) {
-  arvish.config = new Conf({
-    cwd: arvish.env.data
-  });
-}
+  /**
+   * @param  {string} url
+   * @param  {any} options
+   */
+  fetch: async (url: string, options: any) => {
+    options = {
+      json: true,
+      ...options
+    };
 
-if (arvish.env.cache) {
-  arvish.cache = new CacheConf({
-    configName: 'cache',
-    cwd: arvish.env.cache,
-    version: arvish.meta.version
-  });
-}
-
-arvish.fetch = async (url: string, options: any) => {
-  options = {
-    json: true,
-    ...options
-  };
-
-  if (typeof url !== 'string') {
-    return Promise.reject(
-      new TypeError(
-        `Expected \`url\` to be a \`string\`, got \`${typeof url}\``
-      )
-    );
-  }
-
-  if (options.transform && typeof options.transform !== 'function') {
-    return Promise.reject(
-      new TypeError(
-        `Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``
-      )
-    );
-  }
-
-  const rawKey = url + JSON.stringify(options);
-  const key = rawKey.replace(/\./g, '\\.');
-  const cachedResponse = arvish.cache.get(key, { ignoreMaxAge: true });
-
-  if (cachedResponse && !arvish.cache.isExpired(key)) {
-    return Promise.resolve(cachedResponse);
-  }
-
-  let response;
-  try {
-    response = await got(url, options);
-  } catch (error) {
-    if (cachedResponse) {
-      return cachedResponse;
+    if (typeof url !== 'string') {
+      return Promise.reject(
+        new TypeError(
+          `Expected \`url\` to be a \`string\`, got \`${typeof url}\``
+        )
+      );
     }
 
-    throw error;
-  }
+    if (options.transform && typeof options.transform !== 'function') {
+      return Promise.reject(
+        new TypeError(
+          `Expected \`transform\` to be a \`function\`, got \`${typeof options.transform}\``
+        )
+      );
+    }
 
-  const data = options.transform
-    ? options.transform(response.body)
-    : response.body;
+    const rawKey = url + JSON.stringify(options);
+    const key = rawKey.replace(/\./g, '\\.');
+    const cachedResponse = arvish.cache.get(key, { ignoreMaxAge: true });
 
-  if (options.maxAge) {
-    arvish.cache.set(key, data, { maxAge: options.maxAge });
-  }
+    if (cachedResponse && !arvish.cache.isExpired(key)) {
+      return Promise.resolve(cachedResponse);
+    }
 
-  return data;
+    let response;
+    try {
+      response = await got(url, options);
+    } catch (error) {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      throw error;
+    }
+
+    const data = options.transform
+      ? options.transform(response.body)
+      : response.body;
+
+    if (options.maxAge) {
+      arvish.cache.set(key, data, { maxAge: options.maxAge });
+    }
+
+    return data;
+  },
+
+  meta: {
+    name: getEnv('extension_name'),
+    version: getEnv('extension_version'),
+    uid: getEnv('extension_uid'),
+    bundleId: getEnv('extension_bundleid')
+  },
+
+  env: {
+    data: getEnv('extension_data'),
+    cache: getEnv('extension_cache'),
+    history: getEnv('extension_history')
+  },
+
+  input: process.argv[2],
+
+  config: getEnv('extension_data')
+    ? new Conf({
+        cwd: getEnv('extension_data')
+      })
+    : {},
+
+  cache: getEnv('extension_cache')
+    ? new CacheConf({
+        configName: 'cache',
+        cwd: getEnv('extension_cache'),
+        version: getEnv('extension_version')
+      })
+    : {}
 };
 
 loudRejection(arvish.error);
 process.on('uncaughtException', arvish.error);
 hookStd.stderr(arvish.error);
+
+export default arvish;
