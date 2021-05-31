@@ -50,8 +50,10 @@ const cliFunc = async (input: string[], flags?: any) => {
           error(
             "Error: It seems that current directoy is not arvis extension's directory"
           );
+          return;
         }
       }
+      console.log(chalk.green('Jobs done!'));
       break;
 
     case 'convert':
