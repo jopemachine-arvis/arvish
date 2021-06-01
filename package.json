@@ -3,7 +3,9 @@
 	"version": "0.0.4",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
-		"arvish": "dist/cli/main.js"
+		"arvish": "dist/cli/main.js",
+		"arvish-init": "init.js",
+		"arvish-cleanup": "cleanup.js"
 	},
 	"main": "dist/index.js",
 	"license": "MIT",
