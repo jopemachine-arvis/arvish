@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import Conf from 'conf';
 import CacheConf from 'cache-conf';
 import ConfMock from './external/confMock';
@@ -189,4 +188,4 @@ loudRejection(arvish.error);
 process.on('uncaughtException', arvish.error);
 hookStd.stderr(arvish.error);
 
-export default arvish;
+export = arvish;
