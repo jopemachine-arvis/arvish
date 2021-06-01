@@ -71,7 +71,7 @@ const arvish = {
    * @param  {any} error
    */
   error: (error: any) => {
-    const stack = cleanStack(error.stack?.toString() || error.message);
+    const stack = cleanStack(error.stack || error);
     const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctrl + L';
     const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctrl + C';
 

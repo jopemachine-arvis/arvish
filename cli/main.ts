@@ -7,7 +7,7 @@ import { zipExtensionFolder } from './zip';
 import path from 'path';
 import chalk from 'chalk';
 import { checkFileExists, error } from './utils';
-import convert from 'arvis-plist-converter';
+import convert from '@jopemachine/arvis-plist-converter';
 
 /**
  * @param  {string[]} input
