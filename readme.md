@@ -12,7 +12,9 @@ Check each of the below documents.
 
 * [Cli](./documents/cli.md)
 
-* [Library](./documents/lib.md)
+* [Library for workflow](./documents/lib-workflow.md)
+
+* [Library for plugin](./documents/lib-plugin.md)
 
 ## alfy
 

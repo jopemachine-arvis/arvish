@@ -1,21 +1,25 @@
-## Workflow Example
+## Plugin Example
 
 Here we fetch some JSON from a placeholder API and present matching items to the user:
 
 ```js
 const arvish = require('arvish');
 
-const data = await arvish.fetch('https://jsonplaceholder.typicode.com/posts');
+const getPluginItems = async ({ inputStr }) => {
+	const data = await arvish.fetch('https://jsonplaceholder.typicode.com/posts');
 
-const items = arvish
-	.inputMatches(data, 'title')
-	.map(element => ({
-		title: element.title,
-		subtitle: element.body,
-		arg: element.id
-	}));
+	const items = arvish
+		.inputMatches(data, 'title')
+		.map(element => ({
+			title: element.title,
+			subtitle: element.body,
+			arg: element.id
+		}));
 
-arvish.output(items);
+	return {
+		items
+	};
+};
 ```
 
 ## API
@@ -25,59 +29,6 @@ arvish.output(items);
 Type: `string`
 
 Input from Arvis. What the user wrote in the input box.
-
-#### output(list, options?)
-
-Return output to Arvis
-
-##### list
-
-Type: `object[]`
-
-List of `object` with any of the [supported properties](https://github.com/jopemachine/arvis/blob/master/documents/scriptfilter-json-format-description.md).
-
-Example:
-
-```js
-arvish.output([
-	{
-		title: 'Unicorn'
-	},
-	{
-		title: 'Rainbow'
-	}
-]);
-```
-
-##### options
-
-Type: `object`
-
-###### rerunInterval
-
-Type: `number` *(seconds)*\
-Values: `0.1...5.0`
-
-A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
-
-For example, it could be used to update the progress of a particular task:
-
-```js
-arvish.output(
-	[
-		{
-			title: 'Downloading Unicorns…',
-			subtitle: `${progress}%`,
-		}
-	],
-	{
-		// Re-run and update progress every 3 seconds.
-		rerunInterval: 3
-	}
-);
-```
-
-
 
 #### log(value)
 
@@ -232,7 +183,7 @@ await arvish.fetch('https://api.foo.com', {
 })
 ```
 
-#### config
+#### getConfig
 
 Type: `object`
 
@@ -243,15 +194,15 @@ Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with 
 Example:
 
 ```js
-arvish.config.set('unicorn', '🦄');
+arvish.getConfig().set('unicorn', '🦄');
 
-arvish.config.get('unicorn');
+arvish.getConfig().get('unicorn');
 //=> '🦄'
 ```
 
-#### cache
+#### getCache
 
-Type: `object`
+Type: `() => object`
 
 Persist cache data.
 
@@ -260,9 +211,9 @@ Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instan
 Example:
 
 ```js
-arvish.cache.set('unicorn', '🦄');
+arvish.getCache().set('unicorn', '🦄');
 
-arvish.cache.get('unicorn');
+arvish.getCache().get('unicorn');
 //=> '🦄'
 ```
 
@@ -276,18 +227,17 @@ Example:
 ```js
 const delay = require('delay');
 
-arvish.cache.set('foo', 'bar', {maxAge: 5000});
+arvish.getCache().set('foo', 'bar', {maxAge: 5000});
 
-arvish.cache.get('foo');
+arvish.getCache().get('foo');
 //=> 'bar'
 
 // Wait 5 seconds
 await delay(5000);
 
-arvish.cache.get('foo');
+arvish.getCache().get('foo');
 //=> undefined
 ```
-
 
 #### meta
 
@@ -307,11 +257,11 @@ Example:
 
 ##### data
 
-Recommended location for non-volatile data. Just use `arvish.data` which uses this path.
+Recommended location for non-volatile data. Just use `arvish.getConfig` which uses this path.
 
 ##### cache
 
-Recommended location for volatile data. Just use `arvish.cache` which uses this path.
+Recommended location for volatile data. Just use `arvish.getCache` which uses this path.
 
 ##### history 
 
