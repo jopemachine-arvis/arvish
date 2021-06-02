@@ -28,13 +28,13 @@ Input from Arvis. What the user wrote in the input box.
 
 #### output(list, options?)
 
-Return output to Alfred.
+Return output to Arvis
 
 ##### list
 
 Type: `object[]`
 
-List of `object` with any of the [supported properties](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/).
+List of `object` with any of the [supported properties](https://github.com/jopemachine/arvis/blob/master/documents/scriptfilter-json-format-description.md).
 
 Example:
 
@@ -58,7 +58,7 @@ Type: `object`
 Type: `number` *(seconds)*\
 Values: `0.1...5.0`
 
-A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run. [More info.](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
+A script can be set to re-run automatically after some interval. The script will only be re-run if the script filter is still active and the user hasn't changed the state of the filter by typing and triggering a re-run.
 
 For example, it could be used to update the progress of a particular task:
 
@@ -81,7 +81,7 @@ arvish.output(
 
 #### log(value)
 
-Log `value` to the [Alfred workflow debugger](https://www.alfredapp.com/help/workflows/advanced/debugger/).
+Log `value` to the debugger
 
 #### matches(input, list, item?)
 
@@ -165,7 +165,7 @@ Same as `matches()`, but with `arvish.input` as `input`.
 
 #### error(error)
 
-Display an error or error message in Alfred.
+Display an error or error message in debugger.
 
 **Note:** You don't need to `.catch()` top-level promises. Arvish handles that for you.
 

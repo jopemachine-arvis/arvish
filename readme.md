@@ -26,5 +26,4 @@ Note that `arvish` not support below features yet.
 
 * `top-await`
 * `alfred-notifier`
-* `alfred-link`
 * `alfred-update`
