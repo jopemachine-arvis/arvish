@@ -3,7 +3,7 @@ import execa from 'execa';
 
 (async () => {
   try {
-    await execa('alfred-unlink', {
+    await execa('arvis-unlink', {
       preferLocal: true,
       localDir: __dirname
     });

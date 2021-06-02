@@ -1,11 +1,11 @@
 {
 	"name": "@jopemachine/arvish",
-	"version": "0.0.4",
+	"version": "0.0.7",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
-		"arvish-init": "init.js",
-		"arvish-cleanup": "cleanup.js"
+		"arvish-init": "dist/init.js",
+		"arvish-cleanup": "dist/cleanup.js"
 	},
 	"main": "dist/index.js",
 	"license": "MIT",
@@ -45,7 +45,8 @@
 		"hook-std": "^2.0.0",
 		"loud-rejection": "^2.1.0",
 		"meow": "^9.0.0",
-		"@jopemachine/arvis-plist-converter": "^0.0.4"
+		"@jopemachine/arvis-plist-converter": "^0.0.4",
+		"@jopemachine/arvis-link": "^0.0.7"
 	},
 	"devDependencies": {
 		"@types/archiver": "^5.1.0",
