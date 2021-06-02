@@ -7,6 +7,9 @@ import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
+import updateCheck from '@jopemachine/arvis-notifier';
+
+updateCheck();
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 

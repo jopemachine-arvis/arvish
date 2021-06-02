@@ -27,5 +27,5 @@ This means maybe you can simply replace alfred-workflows written in `alfy` with 
 Note that `arvish` not support below features yet.
 
 * `top-await`
-* `alfred-notifier`
-* `alfred-update`
+
+* Does not provide available icons
