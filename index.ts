@@ -7,9 +7,9 @@ import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
-import updateCheck from '@jopemachine/arvis-notifier';
+import { checkUpdate } from '@jopemachine/arvis-notifier';
 
-updateCheck();
+checkUpdate();
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
@@ -175,7 +175,7 @@ ${process.platform} ${os.release()}
   getConfig: () =>
     getEnv('extension_data')
       ? new Conf({
-          cwd: getEnv('extension_data')
+          cwd: getEnv('extension_data')!
         })
       : new ConfMock(),
 
@@ -196,7 +196,7 @@ ${process.platform} ${os.release()}
    */
   config: getEnv('extension_data')
     ? new Conf({
-        cwd: getEnv('extension_data')
+        cwd: getEnv('extension_data')!
       })
     : new ConfMock(),
 
