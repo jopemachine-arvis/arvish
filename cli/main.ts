@@ -27,7 +27,7 @@ const cliFunc = async (input: string[], flags?: any) => {
       break;
     }
 
-    case 'zip':
+    case 'build':
       if (input[1] && input[2]) {
         if (input[2] !== 'workflow' && input[2] !== 'plugin') {
           error("Error: Specify second argument as 'workflow' or 'plugin'");

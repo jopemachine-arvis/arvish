@@ -13,8 +13,8 @@ Usage
         $ arvish convert info.plist
 
     To zip arvis-extension's directory to installer file, 
-        $ arvish zip
-        $ arvish zip workflow /Users/user/Destop/some_extension
+        $ arvish build
+        $ arvish build workflow /Users/user/Destop/some_extension
 
 See README.md for more details.
 ```

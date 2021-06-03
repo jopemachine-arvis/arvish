@@ -17,7 +17,7 @@ export const zipExtensionFolder = async (source: string, type: string) => {
       error(`Error: It seems that arvis-${type}.json file is not valid`);
     }
 
-    const bundleId = `@${json.createdby}/${json.name}`
+    const bundleId = `@${json.createdby}.${json.name}`
     const target = `${source}${path.sep}${bundleId}.arvis${type}`;
     console.log(chalk.cyan(`Creating '${target}'.. please wait..`));
 
