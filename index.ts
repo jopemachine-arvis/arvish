@@ -218,9 +218,8 @@ ${process.platform} ${os.release()}
 
 if (getEnv('extension_type') === 'workflow') {
   loudRejection(arvish.error);
+  process.on('uncaughtException', arvish.error);
+  hookStd.stderr(arvish.error);
 }
-
-process.on('uncaughtException', arvish.error);
-hookStd.stderr(arvish.error);
 
 export = arvish;
