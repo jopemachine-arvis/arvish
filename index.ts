@@ -161,7 +161,8 @@ ${process.platform} ${os.release()}
   meta: {
     name: getEnv('extension_name'),
     version: getEnv('extension_version'),
-    bundleId: getEnv('extension_bundleid')
+    bundleId: getEnv('extension_bundleid'),
+    type: getEnv('extension_type')
   },
 
   env: {
@@ -215,7 +216,10 @@ ${process.platform} ${os.release()}
     : new ConfMock()
 };
 
-loudRejection(arvish.error);
+if (getEnv('extension_type') === 'workflow') {
+  loudRejection(arvish.error);
+}
+
 process.on('uncaughtException', arvish.error);
 hookStd.stderr(arvish.error);
 
