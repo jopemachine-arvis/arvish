@@ -6,7 +6,6 @@ const mock = {
   createdby: '',
   name: '',
   enabled: true,
-  bundleId: '',
   description: '',
   platform: [process.platform],
   readme: '',
@@ -15,9 +14,9 @@ const mock = {
   commands: []
 };
 
-export default async (bundleId?: string) => {
-  if (bundleId) {
-    mock.bundleId = bundleId;
+export default async (name?: string) => {
+  if (name) {
+    mock.name = name;
   }
 
   await fse.writeJSON(`${process.cwd()}${path.sep}arvis-workflow.json`, mock, {

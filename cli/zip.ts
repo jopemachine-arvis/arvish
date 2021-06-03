@@ -13,11 +13,12 @@ export const zipExtensionFolder = async (source: string, type: string) => {
     const json = await fse.readJSON(
       `${process.cwd()}${path.sep}arvis-${type}.json`
     );
-    if (!json.bundleId) {
+    if (!json.name || !json.createdby) {
       error(`Error: It seems that arvis-${type}.json file is not valid`);
     }
 
-    const target = `${source}${path.sep}${json.bundleId}.arvis${type}`;
+    const bundleId = `@${json.createdby}/${json.name}`
+    const target = `${source}${path.sep}${bundleId}.arvis${type}`;
     console.log(chalk.cyan(`Creating '${target}'.. please wait..`));
 
     await zipCurrentDir(source, target);
