@@ -1,6 +1,6 @@
 {
 	"name": "@jopemachine/arvish",
-	"version": "0.1.7",
+	"version": "0.1.9",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",

@@ -21,7 +21,7 @@ export const zipExtensionFolder = async (
     const { errors, valid } = validate(json, type);
 
     if (!valid) {
-      error(`Error: It seems that arvis-${type}.json file is not valid`);
+      error(`Error: It seems that arvis-${type}.json file is not valid\n`);
       error(errors.map(error => error.message).join('\n'));
       return;
     }

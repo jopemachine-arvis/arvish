@@ -17,5 +17,9 @@ Usage
         $ arvish build
         $ arvish build workflow /Users/user/Destop/some_extension
 
+    To validate arvis-extension json file,
+        $ arvish validate workflow arvis-workflow.json
+        $ arvish validate plugin arvis-plugin.json
+
 See README.md for more details.
 `);

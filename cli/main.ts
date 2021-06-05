@@ -8,6 +8,8 @@ import path from 'path';
 import chalk from 'chalk';
 import { checkFileExists, error } from './utils';
 import convert from '@jopemachine/arvis-plist-converter';
+import { validate } from '@jopemachine/arvis-extension-validator';
+import fse from 'fs-extra';
 
 /**
  * @param  {string[]} input
@@ -34,7 +36,7 @@ const cliFunc = async (input: string[], flags?: any) => {
           return;
         }
 
-        await zipExtensionFolder(input[2], (input[1]) as 'workflow' | 'plugin');
+        await zipExtensionFolder(input[2], input[1] as 'workflow' | 'plugin');
       } else {
         if (
           await checkFileExists(
@@ -62,6 +64,20 @@ const cliFunc = async (input: string[], flags?: any) => {
       } else {
         await convert(`${process.cwd()}${path.sep}info.plist`);
       }
+      break;
+
+    case 'validate':
+      fse.readJSON(cli.input[2]).then(jsonData => {
+        const { errors, valid } = validate(
+          jsonData,
+          cli.input[1] as 'workflow' | 'plugin'
+        );
+        if (valid) console.log(chalk.greenBright(`${cli.input[2]} is valid`));
+        else {
+          error('Not valid file. \nReason:\n');
+          errors.map(err => error(err.message));
+        }
+      });
       break;
   }
 
