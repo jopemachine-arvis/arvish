@@ -34,7 +34,7 @@ const cliFunc = async (input: string[], flags?: any) => {
           return;
         }
 
-        await zipExtensionFolder(input[2], input[1]);
+        await zipExtensionFolder(input[2], (input[1]) as 'workflow' | 'plugin');
       } else {
         if (
           await checkFileExists(

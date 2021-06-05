@@ -4,20 +4,29 @@ import fs from 'fs';
 import path from 'path';
 import fse from 'fs-extra';
 import { error } from './utils';
+import { validate } from '@jopemachine/arvis-extension-validator';
 
 /**
  * @param  {string} type
  */
-export const zipExtensionFolder = async (source: string, type: string) => {
+export const zipExtensionFolder = async (
+  source: string,
+  type: 'workflow' | 'plugin'
+): Promise<void> => {
   try {
     const json = await fse.readJSON(
       `${process.cwd()}${path.sep}arvis-${type}.json`
     );
-    if (!json.name || !json.createdby) {
+
+    const { errors, valid } = validate(json, type);
+
+    if (!valid) {
       error(`Error: It seems that arvis-${type}.json file is not valid`);
+      error(errors.map(error => error.message).join('\n'));
+      return;
     }
 
-    const bundleId = `@${json.createdby}.${json.name}`
+    const bundleId = `@${json.createdby}.${json.name}`;
     const target = `${source}${path.sep}${bundleId}.arvis${type}`;
     console.log(chalk.cyan(`Creating '${target}'.. please wait..`));
 
