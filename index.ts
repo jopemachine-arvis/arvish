@@ -8,8 +8,11 @@ import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
 import { checkUpdate } from '@jopemachine/arvis-notifier';
+import path from 'path';
 
 checkUpdate();
+
+const getIcon = (iconName: string) => path.resolve(__dirname, 'assets', iconName);
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
@@ -213,7 +216,16 @@ ${process.platform} ${os.release()}
         cwd: getEnv('extension_cache'),
         version: getEnv('extension_version')
       })
-    : new ConfMock()
+    : new ConfMock(),
+
+  icon: {
+    info: getIcon('info'),
+    warning: getIcon('warning'),
+    error: getIcon('error'),
+    alert: getIcon('alert'),
+    like: getIcon('like'),
+    delete: getIcon('delete')
+  }
 };
 
 if (getEnv('extension_type') === 'workflow') {

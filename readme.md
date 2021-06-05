@@ -29,3 +29,9 @@ Note that `arvish` not support below features yet.
 * `top-await`
 
 * Does not provide available icons
+
+## Icon sources
+
+This lib uses below icon sources
+
+<a target="_blank" href="https://icons8.com">Image</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
