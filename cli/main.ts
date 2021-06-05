@@ -68,14 +68,14 @@ const cliFunc = async (input: string[], flags?: any) => {
 
     case 'validate':
       fse.readJSON(cli.input[2]).then(jsonData => {
-        const { errors, valid } = validate(
+        const { valid, errorMsg } = validate(
           jsonData,
           cli.input[1] as 'workflow' | 'plugin'
         );
         if (valid) console.log(chalk.greenBright(`${cli.input[2]} is valid`));
         else {
           error('Not valid file. \nReason:\n');
-          errors.map(err => error(err.message));
+          error(errorMsg);
         }
       });
       break;

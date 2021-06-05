@@ -24,11 +24,7 @@ So, It has almost same programmatic API with `alfy`.
 
 This means maybe you can simply replace alfred-workflows written in `alfy` with `arvish`.
 
-Note that `arvish` not support below features yet.
-
-* `top-await`
-
-* Does not provide available icons
+Note that `arvish` not support `top-await` feature yet.
 
 ## Icon sources
 
