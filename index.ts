@@ -100,6 +100,9 @@ ${process.platform} ${os.release()}
         text: {
           copy,
           largetype: stack
+        },
+        icon: {
+          path: getIcon(error)
         }
       }
     ]);
