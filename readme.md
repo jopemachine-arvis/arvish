@@ -24,7 +24,11 @@ So, It has almost same programmatic API with `alfy`.
 
 This means maybe you can simply replace alfred-workflows written in `alfy` with `arvish`.
 
-Note that `arvish` not support `top-await` feature yet.
+Note that below differences between arvish and alfy.
+
+* `arvish` does not support `top-await` feature.
+
+* Arvis provides `$PATH` to extension's scripts. So, `run-node` is removed in `arvish`.
 
 ## Icon sources
 
