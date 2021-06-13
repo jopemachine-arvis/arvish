@@ -26,7 +26,7 @@ export const zipExtensionFolder = async (
       return;
     }
 
-    const bundleId = `${json.createdby}.${json.name}`;
+    const bundleId = `${json.creator}.${json.name}`;
     const target = `${source}${path.sep}${bundleId}.arvis${type}`;
     console.log(chalk.cyan(`Creating '${target}'.. please wait..`));
 

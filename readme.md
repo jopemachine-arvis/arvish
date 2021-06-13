@@ -4,11 +4,9 @@ Lib that helps you create [Arvis](https://github.com/jopemachine/arvis) `workflo
 
 (Not necessary for extension creation).
 
-## Composition
+Arvish has both the Cli tools and libraries needed to create `extension`
 
-Arvish has both the Cli tools and js libraries needed to create `extension`
-
-Check each of the below documents.
+Check the below documents.
 
 * [Cli](./documents/cli.md)
 

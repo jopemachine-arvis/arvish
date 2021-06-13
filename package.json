@@ -1,6 +1,6 @@
 {
 	"name": "@jopemachine/arvish",
-	"version": "0.1.28",
+	"version": "0.2.0",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -27,16 +27,17 @@
 	"keywords": [
 		"arvis",
 		"arvis-workflow",
-		"arvis-plugin"
+		"arvis-plugin",
+		"arvish"
 	],
 	"bugs": {
 		"url": "https://github.com/jopemachine/arvish"
 	},
 	"dependencies": {
-		"@jopemachine/arvis-extension-validator": "^0.0.6",
-		"@jopemachine/arvis-link": "^0.1.6",
+		"@jopemachine/arvis-extension-validator": "^0.2.0",
+		"@jopemachine/arvis-link": "^0.2.0",
 		"@jopemachine/arvis-notifier": "^0.2.1",
-		"@jopemachine/arvis-plist-converter": "^0.1.5",
+		"@jopemachine/arvis-plist-converter": "^0.2.0",
 		"archiver": "^5.3.0",
 		"cache-conf": "^0.6.0",
 		"chalk": "^4.1.1",

@@ -3,14 +3,14 @@ import path from 'path';
 
 const mock = {
   $schema: './workflow-schema.json',
-  createdby: '',
+  creator: '',
   name: '',
   enabled: true,
   description: '',
   platform: [process.platform],
   readme: '',
   version: '0.0.1',
-  webaddress: '',
+  webAddress: '',
   commands: []
 };
 
