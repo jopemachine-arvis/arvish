@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import fse from 'fs-extra';
 import { error } from './utils';
-import { validate } from '@jopemachine/arvis-extension-validator';
+import { validate } from 'arvis-extension-validator';
 
 /**
  * @param  {string} type

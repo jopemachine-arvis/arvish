@@ -7,7 +7,7 @@ import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import cleanStack from 'clean-stack';
 import dotProp from 'dot-prop';
-// import { checkUpdate } from '@jopemachine/arvis-notifier';
+// import { checkUpdate } from 'arvis-notifier';
 import path from 'path';
 
 // * Need to test on public below logic 

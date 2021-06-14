@@ -7,8 +7,8 @@ import { zipExtensionFolder } from './zip';
 import path from 'path';
 import chalk from 'chalk';
 import { checkFileExists, error } from './utils';
-import convert from '@jopemachine/alfred-to-arvis';
-import { validate } from '@jopemachine/arvis-extension-validator';
+import convert from 'alfred-to-arvis';
+import { validate } from 'arvis-extension-validator';
 import fse from 'fs-extra';
 
 /**
