@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"arvis-extension-validator": "^0.0.1",
-		"arvis-link": "^0.0.2",
+		"arvis-linker": "^0.0.1",
 		"arvis-notifier": "^0.0.1",
 		"alfred-to-arvis": "^0.0.1",
 		"archiver": "^5.3.0",
