@@ -25,13 +25,13 @@ This library is forked from [alfy](https://github.com/sindresorhus/alfy).
 
 So, It has almost same programmatic API with `alfy`.
 
-This means maybe you can simply replace alfred-workflows written in `alfy` with `arvish`.
+This means you might simply replace alfred-workflows written in `alfy` with `arvish`.
 
 Note that below differences between arvish and alfy.
 
 * `arvish` does not support `top-await` feature.
 
-* Arvis provides `$PATH` to extension's scripts. So, `run-node` is removed in `arvish`.
+* Arvis provides `$PATH` to extension's scripts. So, [run-node](https://github.com/sindresorhus/run-node) is removed in `arvish`.
 
 ## Icon sources
 
