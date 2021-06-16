@@ -6,9 +6,10 @@ import initWorkflow from './initWorkflow';
 import { zipExtensionFolder } from './zip';
 import path from 'path';
 import chalk from 'chalk';
-import { checkFileExists, error } from './utils';
+import pathExists from 'path-exists';
+import { error } from './utils';
 import convert from 'alfred-to-arvis';
-import { validate } from 'arvis-extension-validator';
+import { validate as validateJson } from 'arvis-extension-validator';
 import fse from 'fs-extra';
 
 /**
@@ -39,13 +40,11 @@ const cliFunc = async (input: string[], flags?: any) => {
         await zipExtensionFolder(input[2], input[1] as 'workflow' | 'plugin');
       } else {
         if (
-          await checkFileExists(
-            `${process.cwd()}${path.sep}arvis-workflow.json`
-          )
+          await pathExists(`${process.cwd()}${path.sep}arvis-workflow.json`)
         ) {
           await zipExtensionFolder(process.cwd(), 'workflow');
         } else if (
-          await checkFileExists(`${process.cwd()}${path.sep}arvis-plugin.json`)
+          await pathExists(`${process.cwd()}${path.sep}arvis-plugin.json`)
         ) {
           await zipExtensionFolder(process.cwd(), 'plugin');
         } else {
@@ -68,7 +67,7 @@ const cliFunc = async (input: string[], flags?: any) => {
 
     case 'validate':
       fse.readJSON(cli.input[2]).then(jsonData => {
-        const { valid, errorMsg } = validate(
+        const { valid, errorMsg } = validateJson(
           jsonData,
           cli.input[1] as 'workflow' | 'plugin'
         );

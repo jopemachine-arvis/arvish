@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import fse from 'fs-extra';
 import { error } from './utils';
-import { validate } from 'arvis-extension-validator';
+import { validate as validateJson } from 'arvis-extension-validator';
 
 /**
  * @param  {string} type
@@ -18,11 +18,11 @@ export const zipExtensionFolder = async (
       `${process.cwd()}${path.sep}arvis-${type}.json`
     );
 
-    const { errors, valid } = validate(json, type);
+    const { errorMsg, valid } = validateJson(json, type);
 
     if (!valid) {
       error(`Error: It seems that arvis-${type}.json file is not valid\n`);
-      error(errors.map(error => error.message).join('\n'));
+      error(errorMsg);
       return;
     }
 
