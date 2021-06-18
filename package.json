@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -45,11 +45,13 @@
 		"conf": "^5.0.0",
 		"dot-prop": "^5.1.0",
 		"execa": "^2.1.0",
+		"fast-glob": "^3.2.5",
 		"fs-extra": "^10.0.0",
 		"got": "^9.3.2",
 		"hook-std": "^2.0.0",
 		"loud-rejection": "^2.1.0",
 		"meow": "^9.0.0",
+		"ora": "^5.4.1",
 		"path-exists": "^4.0.0",
 		"username": "^5.1.0"
 	},
