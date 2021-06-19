@@ -22,6 +22,44 @@ Check the below documents.
 
 * [Library for plugin](./documents/lib-plugin.md)
 
+## Update notifications
+
+Arvish uses [arvish-notifier](https://github.com/jopemachine/arvish-notifier) in the background to show a notification when an update for extensions is available.
+
+## Caching
+
+Arvish offers the possibility of caching data, either with the [fetch](#fetchurl-options) or directly through the [cache](#cache) object.
+
+An important thing to note is that the cached data gets invalidated automatically when you update your extension. This offers the flexibility for developers to change the structure of the cached data between extensions without having to worry about invalid older data.
+
+## Publish extension to npm
+
+By adding `arvish-init` as `postinstall` and `arvish-cleanup` as `preuninstall` script, you can publish your package to [npm](https://npmjs.org). This way, your packages are only one simple `npm install` command away.
+
+```json
+{
+	"name": "arvis-unicorn",
+	"scripts": {
+		"postinstall": "arvish-init",
+		"preuninstall": "arvish-cleanup"
+	},
+	"dependencies": {
+		"arvish": "*"
+	}
+}
+```
+
+After publishing your extension to npm, your users can easily install or update the extension.
+
+```
+$ npm install --global arvis-unicorn
+```
+
+## Environment variables
+
+Arvis lets users set environment variables for a extension which can then be used by that extension. This can be useful if you, for example, need the user to specify an API token for a service. You can access the extension environment variables from [`process.env`](https://nodejs.org/api/process.html#process_process_env). For example `process.env.apiToken`.
+
+
 ## alfy
 
 This library is forked from [alfy](https://github.com/sindresorhus/alfy).
@@ -35,6 +73,12 @@ Note that below differences between arvish and alfy.
 * `arvish` does not support `top-await` feature.
 
 * Arvis provides `$PATH` to extension's scripts. So, [run-node](https://github.com/sindresorhus/run-node) is removed in `arvish`.
+
+## Related
+
+- [arvis-linker](https://github.com/jopemachine/arvis-linker) - Make Arvis extensions installable from npm
+
+- [arvis-notifier](https://github.com/jopemachine/arvis-notifier) - Update notifications for Arvis extension
 
 ## Icon sources
 
