@@ -24,7 +24,7 @@ Check the below documents.
 
 ## Update notifications
 
-Arvish uses [arvish-notifier](https://github.com/jopemachine/arvish-notifier) in the background to show a notification when an update for extensions is available.
+Arvish uses [arvis-notifier](https://github.com/jopemachine/arvis-notifier) in the background to show a notification when an update for extensions is available.
 
 ## Caching
 
