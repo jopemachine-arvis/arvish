@@ -28,7 +28,7 @@ export const zipExtensionFolder = async (
     }
 
     const bundleId = `${json.creator}.${json.name}`;
-    const target = `${source}${path.sep}${bundleId}.arvis${type}`;
+    const target = path.resolve(source, `${bundleId}.arvis${type}`);
 
     const spinner = ora(`Creating '${target}'..`).start();
     spinner.color = 'yellow';

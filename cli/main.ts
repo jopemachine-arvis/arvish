@@ -40,11 +40,11 @@ const cliFunc = async (input: string[], flags?: any) => {
         await zipExtensionFolder(input[2], input[1] as 'workflow' | 'plugin');
       } else {
         if (
-          await pathExists(`${process.cwd()}${path.sep}arvis-workflow.json`)
+          await pathExists(path.resolve(process.cwd(), 'arvis-workflow.json'))
         ) {
           await zipExtensionFolder(process.cwd(), 'workflow');
         } else if (
-          await pathExists(`${process.cwd()}${path.sep}arvis-plugin.json`)
+          await pathExists(path.resolve(process.cwd(), 'arvis-plugin.json'))
         ) {
           await zipExtensionFolder(process.cwd(), 'plugin');
         } else {

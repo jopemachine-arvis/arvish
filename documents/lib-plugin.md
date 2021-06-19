@@ -267,3 +267,49 @@ Recommended location for volatile data. Just use `arvish.getCache` which uses th
 
 Path for saving the action logs and query logs.
 
+##### home
+
+User's home directory.
+
+##### crashDumps
+
+Directory where crash dumps are stored.
+
+##### desktop
+
+The current user's Desktop directory.
+
+##### documents
+
+Directory for a user's "My Documents".
+
+##### downloads
+
+Directory for a user's "Downloads".
+
+##### currentExe
+
+The current executable file.
+
+##### music
+
+Directory for a user's music.
+
+##### pictures
+
+Directory for a user's pictures.
+
+##### temp
+
+Temporary directory
+
+##### userData
+
+The directory for storing your app's configuration files, which by default it is the appData directory appended with your app's name.
+
+##### appData
+
+Per-user application data directory, which by default points to
+
+
+

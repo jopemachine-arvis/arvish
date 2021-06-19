@@ -3,7 +3,8 @@ import path from 'path';
 import username from 'username';
 
 const mock = {
-  $schema: 'https://raw.githubusercontent.com/jopemachine/arvis-extension-validator/master/workflow-schema.json',
+  $schema:
+    'https://raw.githubusercontent.com/jopemachine/arvis-extension-validator/master/workflow-schema.json',
   creator: '',
   name: '',
   enabled: true,
@@ -19,17 +20,21 @@ export default async (name?: string) => {
   if (name) {
     mock.name = name;
   } else {
-    mock.name = process.cwd().split(path.sep).pop() ?? '';
+    mock.name = path.dirname(process.cwd());
   }
 
   try {
-    mock.creator = await username() ?? '';
+    mock.creator = (await username()) ?? '';
   } catch (err) {
     // skip initialize value
   }
 
-  await fse.writeJSON(`${process.cwd()}${path.sep}arvis-workflow.json`, mock, {
-    encoding: 'utf8',
-    spaces: 4
-  });
+  await fse.writeJSON(
+    path.resolve(process.cwd(), 'arvis-workflow.json'),
+    mock,
+    {
+      encoding: 'utf8',
+      spaces: 4
+    }
+  );
 };
