@@ -80,6 +80,10 @@ Note that below differences between arvish and alfy.
 
 - [arvis-notifier](https://github.com/jopemachine/arvis-notifier) - Update notifications for Arvis extension
 
+- [alfred-to-arvis](https://github.com/jopemachine/alfred-to-arvis) - Help to convert alfred 4 workflow's info.plist to arvis-workflow.json
+
+- [arvis-extension-validator](https://github.com/jopemachine/arvis-extension-validator) - Arvis extension's JSON schema, cli and library to validate these.
+
 ## Icon sources
 
 This lib uses below icon sources
