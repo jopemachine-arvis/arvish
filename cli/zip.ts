@@ -6,6 +6,7 @@ import { error } from './utils';
 import { validate as validateJson } from 'arvis-extension-validator';
 import ora, { Ora } from 'ora';
 import fg from 'fast-glob';
+import chalk from 'chalk';
 
 /**
  * @param  {string} type
@@ -30,8 +31,11 @@ export const zipExtensionFolder = async (
     const bundleId = `${json.creator}.${json.name}`;
     const target = path.resolve(source, `${bundleId}.arvis${type}`);
 
-    const spinner = ora(`Creating '${target}'..`).start();
-    spinner.color = 'yellow';
+    const spinner = ora({
+      color: 'cyan',
+      discardStdin: true
+    }).start(chalk.whiteBright(`Creating '${bundleId}.arvis${type}'..`));
+
     await zipCurrentDir(source, target, spinner);
     spinner.succeed();
   } catch (err) {
@@ -43,7 +47,11 @@ export const zipExtensionFolder = async (
  * @param  {string} out
  * @returns {Promise<void>}
  */
-const zipCurrentDir = async (source: string, out: string, spinner: Ora): Promise<void> => {
+const zipCurrentDir = async (
+  source: string,
+  out: string,
+  spinner: Ora
+): Promise<void> => {
   const archive = archiver('zip', { zlib: { level: 9 } });
   const stream = fs.createWriteStream(out);
   const targetFileName = out.split(path.sep).pop();
@@ -57,7 +65,7 @@ const zipCurrentDir = async (source: string, out: string, spinner: Ora): Promise
       followSymbolicLinks: false
     }).then(ignoredFiles => {
       for (const ignoreFile of ignoredFiles) {
-        spinner.info(`'${ignoreFile}' is ignored..`);
+        spinner.warn(chalk.dim(`'${ignoreFile}' is ignored..`)).start();
       }
 
       archive
