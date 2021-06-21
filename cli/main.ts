@@ -61,7 +61,7 @@ const cliFunc = async (input: string[], flags?: any) => {
       if (input[1]) {
         await convert(input[1]);
       } else {
-        await convert(`${process.cwd()}${path.sep}info.plist`);
+        await convert(path.resolve(process.cwd(), 'info.plist'));
       }
       break;
 
@@ -73,7 +73,7 @@ const cliFunc = async (input: string[], flags?: any) => {
         );
         if (valid) console.log(chalk.greenBright(`${cli.input[2]} is valid`));
         else {
-          error('Not valid file. \nReason:\n');
+          error('Not valid file.\n\nReason:\n');
           error(errorMsg);
         }
       });

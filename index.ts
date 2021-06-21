@@ -12,8 +12,10 @@ import ConfMock from './external/confMock';
 
 checkUpdate();
 
-const getIcon = (iconName: string) =>
-  path.resolve(__dirname, 'assets', iconName);
+const getIcon = (iconName: string) => {
+  if (!iconName) return 'icon name is not valid.';
+  return path.resolve(__dirname, 'assets', iconName);
+};
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
@@ -103,7 +105,7 @@ ${process.platform} ${os.release()}
           largetype: stack
         },
         icon: {
-          path: getIcon(error)
+          path: getIcon('error')
         }
       }
     ]);
