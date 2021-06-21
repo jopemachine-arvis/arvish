@@ -1,0 +1,29 @@
+{
+    "defaultSeverity": "error",
+    "extends": "tslint:latest",
+    "jsRules": {},
+    "rules": {
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "no-console": false,
+        "no-unused-expression": false,
+        "max-classes-per-file": false,
+        "no-var-requires": false,
+        "prefer-for-of": false,
+        "ban-types": false,
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "ordered-imports": true,
+        "no-var-keyword": true,
+        "prefer-const": true,
+        "no-string-literal": false
+    }
+}

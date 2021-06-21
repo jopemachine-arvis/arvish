@@ -13,7 +13,7 @@ Usage
         $ arvish convert
         $ arvish convert info.plist
 
-    To build arvis-extension's directory to installer file, 
+    To build arvis-extension's directory to installer file,
         $ arvish build
         $ arvish build workflow /Users/user/Destop/some_extension
 

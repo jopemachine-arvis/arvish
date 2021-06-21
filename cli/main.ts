@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-import getHelpStr from './getHelpStr';
-import meow from 'meow';
-import initPlugin from './initPlugin';
-import initWorkflow from './initWorkflow';
-import { zipExtensionFolder } from './zip';
-import path from 'path';
-import chalk from 'chalk';
-import pathExists from 'path-exists';
-import { error } from './utils';
 import convert from 'alfred-to-arvis';
 import { validate as validateJson } from 'arvis-extension-validator';
+import chalk from 'chalk';
 import fse from 'fs-extra';
+import meow from 'meow';
+import path from 'path';
+import pathExists from 'path-exists';
+import getHelpStr from './getHelpStr';
+import initPlugin from './initPlugin';
+import initWorkflow from './initWorkflow';
+import { error } from './utils';
+import { zipExtensionFolder } from './zip';
 
 /**
  * @param  {string[]} input
@@ -26,14 +26,14 @@ const cliFunc = async (input: string[], flags?: any) => {
       } else if (input[1] === 'workflow') {
         initWorkflow(input[2]);
         console.log(chalk.cyan(`Created arvis-workflow.json..`));
-      } else error("Error: Specify second argument as 'workflow' or 'plugin'");
+      } else error('Error: Specify second argument as \'workflow\' or \'plugin\'');
       break;
     }
 
     case 'build':
       if (input[1] && input[2]) {
         if (input[2] !== 'workflow' && input[2] !== 'plugin') {
-          error("Error: Specify second argument as 'workflow' or 'plugin'");
+          error('Error: Specify second argument as \'workflow\' or \'plugin\'');
           return '';
         }
 
@@ -49,7 +49,7 @@ const cliFunc = async (input: string[], flags?: any) => {
           await zipExtensionFolder(process.cwd(), 'plugin');
         } else {
           error(
-            "Error: It seems that current directoy is not arvis extension's directory"
+            'Error: It seems that current directoy is not arvis extension\'s directory'
           );
           return '';
         }

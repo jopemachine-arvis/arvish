@@ -1,12 +1,12 @@
 import archiver from 'archiver';
-import fs from 'fs';
-import path from 'path';
-import fse from 'fs-extra';
-import { error } from './utils';
 import { validate as validateJson } from 'arvis-extension-validator';
-import ora, { Ora } from 'ora';
-import fg from 'fast-glob';
 import chalk from 'chalk';
+import fg from 'fast-glob';
+import fs from 'fs';
+import fse from 'fs-extra';
+import ora, { Ora } from 'ora';
+import path from 'path';
+import { error } from './utils';
 
 /**
  * @param  {string} type

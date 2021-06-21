@@ -1,14 +1,14 @@
-import Conf from 'conf';
+import { checkUpdate } from 'arvis-notifier';
 import CacheConf from 'cache-conf';
-import ConfMock from './external/confMock';
-import os from 'os';
+import cleanStack from 'clean-stack';
+import Conf from 'conf';
+import dotProp from 'dot-prop';
 import got from 'got';
 import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
-import cleanStack from 'clean-stack';
-import dotProp from 'dot-prop';
-import { checkUpdate } from 'arvis-notifier';
+import os from 'os';
 import path from 'path';
+import ConfMock from './external/confMock';
 
 checkUpdate();
 
