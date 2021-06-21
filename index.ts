@@ -27,14 +27,17 @@ const arvish = {
   output: (
     items: object,
     options: { rerunInterval?: number; variables?: object } = {}
-  ) => {
-    console.log(
-      JSON.stringify(
-        { items, rerun: options.rerunInterval, variables: options.variables },
-        null,
-        '\t'
-      )
-    );
+  ): object => {
+    const output = {
+      items,
+      rerun: options.rerunInterval,
+      variables: options.variables,
+    };
+
+    if (getEnv('extension_type') === 'workflow') {
+      console.log(JSON.stringify(output, null, '\t'));
+    }
+    return output;
   },
 
   /**
@@ -72,14 +75,14 @@ const arvish = {
   /**
    * @param  {string} text
    */
-  log: (text: string) => {
+  log: (text: string): void => {
     console.error(text);
   },
 
   /**
    * @param  {any} error
    */
-  error: (error: any) => {
+  error: (error: any): void => {
     const stack = cleanStack(error.stack || error);
     const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctrl + L';
     const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctrl + C';
@@ -91,24 +94,33 @@ ${stack}
 
 -
 ${arvish.meta.name} ${arvish.meta.version}
-arvish
+Arvis ${getEnv('version')}
 ${process.platform} ${os.release()}
 	`.trim();
 
-    arvish.output([
-      {
-        title: error.stack ? `${error.name}: ${error.message}` : error,
-        subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
-        valid: false,
-        text: {
-          copy,
-          largetype: stack
+    if (getEnv('extension_type') === 'workflow') {
+      arvish.output([
+        {
+          title: error.stack ? `${error.name}: ${error.message}` : error,
+          subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
+          valid: false,
+          text: {
+            copy,
+            largetype: stack,
+          },
+          icon: {
+            path: getIcon('error'),
+          },
         },
-        icon: {
-          path: getIcon('error')
-        }
-      }
-    ]);
+      ]);
+    } else {
+      console.error(
+`In '${getEnv('extension_name')}' plugin, below error occured.
+${error.stack ? `${error.name}: ${error.message}` : error}
+
+${stack}`
+      );
+    }
   },
 
   /**
@@ -118,7 +130,7 @@ ${process.platform} ${os.release()}
   fetch: async (url: string, options: any) => {
     options = {
       json: true,
-      ...options
+      ...options,
     };
 
     if (typeof url !== 'string') {
@@ -171,7 +183,7 @@ ${process.platform} ${os.release()}
     name: getEnv('extension_name'),
     version: getEnv('extension_version'),
     bundleId: getEnv('extension_bundleid'),
-    type: getEnv('extension_type')
+    type: getEnv('extension_type'),
   },
 
   env: {
@@ -189,7 +201,7 @@ ${process.platform} ${os.release()}
     appData: getEnv('platform_appData'),
     vidios: getEnv('platform_vidios'),
     crashDumps: getEnv('platform_crashDumps'),
-    currentExe: getEnv('platform_currentExe')
+    currentExe: getEnv('platform_currentExe'),
   },
 
   input: process.argv[2],
@@ -197,7 +209,7 @@ ${process.platform} ${os.release()}
   config: getEnv('extension_data')
     ? new Conf({
         cwd: getEnv('extension_data'),
-        configName: getEnv('extension_name')
+        configName: getEnv('extension_name'),
       })
     : new ConfMock(),
 
@@ -205,7 +217,7 @@ ${process.platform} ${os.release()}
     ? new CacheConf({
         configName: getEnv('extension_name'),
         cwd: getEnv('extension_cache'),
-        version: getEnv('extension_version')
+        version: getEnv('extension_version'),
       })
     : new ConfMock(),
 
@@ -215,17 +227,12 @@ ${process.platform} ${os.release()}
     error: getIcon('error'),
     alert: getIcon('alert'),
     like: getIcon('like'),
-    delete: getIcon('delete')
-  }
+    delete: getIcon('delete'),
+  },
 };
 
-if (getEnv('extension_type') === 'workflow') {
-  loudRejection(arvish.error);
-  process.on('uncaughtException', arvish.error);
-  hookStd.stderr(arvish.error);
-} else {
-  loudRejection();
-  process.on('uncaughtException', console.error);
-}
+loudRejection(arvish.error);
+process.on('uncaughtException', console.error);
+hookStd.stderr(arvish.error);
 
 export = arvish;

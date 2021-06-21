@@ -11,6 +11,8 @@ test('default', t => {
 });
 
 test.serial('.error()', async t => {
+  process.env['arvis_extension_type'] = 'workflow';
+
   const promise = hookStd.stdout(output => {
     promise.unhook();
     t.is(JSON.parse(output).items[0].title, 'Error: foo');

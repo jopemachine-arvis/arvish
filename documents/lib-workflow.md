@@ -167,7 +167,7 @@ Same as `matches()`, but with `arvish.input` as `input`.
 
 Display an error or error message in debugger.
 
-**Note:** You don't need to `.catch()` top-level promises. Arvish handles that for you.
+**Note:** You don't need to `.catch()` promises. Arvish handles that for you.
 
 ##### error
 
@@ -299,7 +299,8 @@ Example:
 {
 	name: 'some_extension_name',
 	version: '0.0.1',
-	bundleId: 'some_extension_bundleId'
+	bundleId: 'some_extension_bundleId',
+	type: 'workflow'
 }
 ```
 

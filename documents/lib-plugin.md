@@ -16,9 +16,7 @@ const getPluginItems = async ({ inputStr }) => {
 			arg: element.id
 		}));
 
-	return {
-		items
-	};
+	return arvish.output(items);
 };
 ```
 
@@ -29,6 +27,12 @@ const getPluginItems = async ({ inputStr }) => {
 Type: `string`
 
 Input from Arvis. What the user wrote in the input box.
+
+#### output(list, options?)
+
+Return output objects to Arvis
+
+Note that usage are a little different from `output` of workflow
 
 #### log(value)
 
@@ -118,13 +122,13 @@ Same as `matches()`, but with `arvish.input` as `input`.
 
 Display an error or error message in debugger.
 
-**Note:** You don't need to `.catch()` top-level promises. Arvish handles that for you.
+**Note:** You don't need to `.catch()` promises. Arvish handles that for you.
 
 ##### error
 
 Type: `Error | string`
 
-Error or error message to be displayed.
+Error or error message to be displayed in `devtools`.
 
 #### fetch(url, options?)
 
@@ -249,7 +253,8 @@ Example:
 {
 	name: 'some_extension_name',
 	version: '0.0.1',
-	bundleId: 'some_extension_bundleId'
+	bundleId: 'some_extension_bundleId',
+	type: 'plugin'
 }
 ```
 
