@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.1.12",
+	"version": "0.1.13",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -13,7 +13,7 @@
 		"node": ">=12"
 	},
 	"scripts": {
-		"test": "xo && ava",
+		"test": "ava",
 		"build": "tsc",
 		"lint": "tslint --project tsconfig.json --fix"
 	},
@@ -61,15 +61,16 @@
 		"@types/fs-extra": "^9.0.11",
 		"@types/got": "^9.6.11",
 		"ava": "^2.3.0",
-		"delay": "^4.3.0",
+		"delay": "^4.4.1",
 		"husky": "^4.2.5",
-		"typescript": "^4.3.2",
-		"xo": "^0.24.0"
+		"nock": "^13.1.0",
+		"tempfile": "^3.0.0",
+		"typescript": "^4.3.2"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run lint",
-			"pre-push": "npm run lint"
+			"pre-commit": "npm run test && npm run lint",
+			"pre-push": "npm run test && npm run lint"
 		}
 	}
 }
