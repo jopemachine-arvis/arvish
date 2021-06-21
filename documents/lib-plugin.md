@@ -183,7 +183,7 @@ await arvish.fetch('https://api.foo.com', {
 })
 ```
 
-#### getConfig
+#### config
 
 Type: `object`
 
@@ -194,13 +194,13 @@ Exports a [`conf` instance](https://github.com/sindresorhus/conf#instance) with 
 Example:
 
 ```js
-arvish.getConfig().set('unicorn', '🦄');
+arvish.conf.set('unicorn', '🦄');
 
-arvish.getConfig().get('unicorn');
+arvish.conf.get('unicorn');
 //=> '🦄'
 ```
 
-#### getCache
+#### cache
 
 Type: `() => object`
 
@@ -211,9 +211,9 @@ Exports a modified [`conf` instance](https://github.com/sindresorhus/conf#instan
 Example:
 
 ```js
-arvish.getCache().set('unicorn', '🦄');
+arvish.cache.set('unicorn', '🦄');
 
-arvish.getCache().get('unicorn');
+arvish.cache.get('unicorn');
 //=> '🦄'
 ```
 
@@ -227,15 +227,15 @@ Example:
 ```js
 const delay = require('delay');
 
-arvish.getCache().set('foo', 'bar', {maxAge: 5000});
+arvish.cache.set('foo', 'bar', {maxAge: 5000});
 
-arvish.getCache().get('foo');
+arvish.cache.get('foo');
 //=> 'bar'
 
 // Wait 5 seconds
 await delay(5000);
 
-arvish.getCache().get('foo');
+arvish.cache.get('foo');
 //=> undefined
 ```
 
@@ -257,11 +257,11 @@ Example:
 
 ##### data
 
-Recommended location for non-volatile data. Just use `arvish.getConfig` which uses this path.
+Recommended location for non-volatile data. Just use `arvish.config` which uses this path.
 
 ##### cache
 
-Recommended location for volatile data. Just use `arvish.getCache` which uses this path.
+Recommended location for volatile data. Just use `arvish.cache` which uses this path.
 
 ##### history 
 

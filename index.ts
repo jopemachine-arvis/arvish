@@ -137,9 +137,9 @@ ${process.platform} ${os.release()}
 
     const rawKey = url + JSON.stringify(options);
     const key = rawKey.replace(/\./g, '\\.');
-    const cachedResponse = arvish.getCache().get(key, { ignoreMaxAge: true });
+    const cachedResponse = arvish.cache.get(key, { ignoreMaxAge: true });
 
-    if (cachedResponse && !arvish.getCache().isExpired(key)) {
+    if (cachedResponse && !arvish.cache.isExpired(key)) {
       return Promise.resolve(cachedResponse);
     }
 
@@ -159,7 +159,7 @@ ${process.platform} ${os.release()}
       : response.body;
 
     if (options.maxAge) {
-      arvish.getCache().set(key, data, { maxAge: options.maxAge });
+      arvish.cache.set(key, data, { maxAge: options.maxAge });
     }
 
     return data;
@@ -192,29 +192,6 @@ ${process.platform} ${os.release()}
 
   input: process.argv[2],
 
-  getConfig: () =>
-    getEnv('extension_data')
-      ? new Conf({
-          cwd: getEnv('extension_data'),
-          configName: getEnv('extension_name')
-        })
-      : new ConfMock(),
-
-  getCache: () =>
-    getEnv('extension_cache')
-      ? new CacheConf({
-          configName: getEnv('extension_name'),
-          cwd: getEnv('extension_cache'),
-          version: getEnv('extension_version')
-        })
-      : new ConfMock(),
-
-  /**
-   * @deprecated Get getConfig instead of config.
-   *             arvish object is a singleton object in pluginWorkspace,
-   *             So the config object can refer to another config object.
-   *             Left for compatibility with Alfy and could be removed later.
-   */
   config: getEnv('extension_data')
     ? new Conf({
         cwd: getEnv('extension_data'),
@@ -222,12 +199,6 @@ ${process.platform} ${os.release()}
       })
     : new ConfMock(),
 
-  /**
-   * @deprecated Get getCache instead of cache.
-   *             arvish object is a singleton object in pluginWorkspace,
-   *             So the cache object can refer to another cache object.
-   *             Left for compatibility with Alfy and could be removed later.
-   */
   cache: getEnv('extension_cache')
     ? new CacheConf({
         configName: getEnv('extension_name'),
