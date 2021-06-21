@@ -12,7 +12,8 @@ import path from 'path';
 
 checkUpdate();
 
-const getIcon = (iconName: string) => path.resolve(__dirname, 'assets', iconName);
+const getIcon = (iconName: string) =>
+  path.resolve(__dirname, 'assets', iconName);
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
@@ -186,7 +187,7 @@ ${process.platform} ${os.release()}
     appData: getEnv('platform_appData'),
     vidios: getEnv('platform_vidios'),
     crashDumps: getEnv('platform_crashDumps'),
-    currentExe: getEnv('platform_currentExe'),
+    currentExe: getEnv('platform_currentExe')
   },
 
   input: process.argv[2],
@@ -194,14 +195,15 @@ ${process.platform} ${os.release()}
   getConfig: () =>
     getEnv('extension_data')
       ? new Conf({
-          cwd: getEnv('extension_data')!
+          cwd: getEnv('extension_data'),
+          configName: getEnv('extension_name')
         })
       : new ConfMock(),
 
   getCache: () =>
     getEnv('extension_cache')
       ? new CacheConf({
-          configName: 'cache',
+          configName: getEnv('extension_name'),
           cwd: getEnv('extension_cache'),
           version: getEnv('extension_version')
         })
@@ -209,25 +211,26 @@ ${process.platform} ${os.release()}
 
   /**
    * @deprecated Get getConfig instead of config.
-   *             arvish object is singleton in pluginWorkspace,
+   *             arvish object is a singleton object in pluginWorkspace,
    *             So the config object can refer to another config object.
    *             Left for compatibility with Alfy and could be removed later.
    */
   config: getEnv('extension_data')
     ? new Conf({
-        cwd: getEnv('extension_data')!
+        cwd: getEnv('extension_data'),
+        configName: getEnv('extension_name')
       })
     : new ConfMock(),
 
   /**
    * @deprecated Get getCache instead of cache.
-   *             arvish object is singleton in pluginWorkspace,
+   *             arvish object is a singleton object in pluginWorkspace,
    *             So the cache object can refer to another cache object.
    *             Left for compatibility with Alfy and could be removed later.
    */
   cache: getEnv('extension_cache')
     ? new CacheConf({
-        configName: 'cache',
+        configName: getEnv('extension_name'),
         cwd: getEnv('extension_cache'),
         version: getEnv('extension_version')
       })
