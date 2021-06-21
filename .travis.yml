@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- node
+sudo: true
+os:
+- osx
+install:
+- npm install && npm run build
+script:
+- npm run test
