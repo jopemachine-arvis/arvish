@@ -3,7 +3,7 @@ import CacheConf from 'cache-conf';
 import cleanStack from 'clean-stack';
 import Conf from 'conf';
 import dotProp from 'dot-prop';
-import got from 'got';
+import got, { GotOptions } from 'got';
 import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import os from 'os';
@@ -11,6 +11,12 @@ import path from 'path';
 import ConfMock from './external/confMock';
 
 checkUpdate();
+
+interface FetchOptions extends GotOptions<string> {
+  json?: boolean;
+  maxAge?: number;
+  transform?: Function;
+}
 
 const getIcon = (iconName: string) => {
   if (!iconName) return 'icon name is not valid.';
@@ -125,9 +131,9 @@ ${stack}`
 
   /**
    * @param  {string} url
-   * @param  {any} options
+   * @param  {FetchOptions} options?
    */
-  fetch: async (url: string, options: any) => {
+  fetch: async (url: string, options?: FetchOptions) => {
     options = {
       json: true,
       ...options,
