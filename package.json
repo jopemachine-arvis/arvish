@@ -38,7 +38,7 @@
 		"alfred-to-arvis": "^0.0.4",
 		"archiver": "^5.3.0",
 		"arvis-extension-validator": "^0.2.0",
-		"arvis-linker": "^0.3.1",
+		"arvis-linker": "^0.3.2",
 		"arvis-notifier": "^0.0.1",
 		"cache-conf": "^0.6.0",
 		"chalk": "^4.1.1",
