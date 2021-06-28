@@ -17,7 +17,7 @@ const mock = {
 };
 
 export default async (name?: string) => {
-  mock.name = name ?? path.dirname(process.cwd());
+  mock.name = name ?? path.basename(process.cwd());
 
   try {
     mock.creator = (await username()) ?? '';
