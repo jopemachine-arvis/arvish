@@ -1,10 +1,9 @@
 {
 	"name": "arvish",
-	"version": "0.3.5",
+	"version": "0.3.6",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
-		"arvish-build": "dist/main.js build",
 		"arvish-init": "dist/init.js",
 		"arvish-cleanup": "dist/cleanup.js"
 	},
