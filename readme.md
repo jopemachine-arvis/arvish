@@ -85,6 +85,8 @@ Note that below differences between arvish and alfy.
 
 - [arvis-extension-validator](https://github.com/jopemachine/arvis-extension-validator) - Arvis extension's JSON schema, cli and library to validate these.
 
+- [arvish-test](https://github.com/jopemachine/arvish-test) - Test your Arvish extensions
+
 ## Icon sources
 
 This lib uses below icon sources
