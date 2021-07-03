@@ -34,7 +34,7 @@ $ arvish build workflow /Users/user/Destop/some_extension
 
 Note that `build` command exclude `files starting with dots`, `package-lock.json`, `yarn.lock`.
 
-## How to build extension installer file
+## How to validate extension json file
 
 To validate arvis-extension json file
 
@@ -60,6 +60,8 @@ $ arvish view [some_extension_name]
 ```
 
 ## Summary
+
+You can refer below help by `arvish --help`
 
 ```
 Usage
