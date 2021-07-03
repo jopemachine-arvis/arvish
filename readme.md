@@ -87,7 +87,7 @@ Note that below differences between arvish and alfy.
 
 - [arvish-test](https://github.com/jopemachine/arvish-test) - Test your Arvish extensions
 
-- [arvish-store](https://github.com/jopemachine/arvish-store) - Publish and Retrieve Arvis extension info
+- [arvis-store](https://github.com/jopemachine/arvis-store) - Publish and Retrieve Arvis extension info
 
 ## Icon sources
 
