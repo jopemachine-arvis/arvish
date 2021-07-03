@@ -66,6 +66,8 @@ const cliFunc = async (input: string[], flags?: any) => {
       }
       break;
 
+    case 'pu':
+    case 'pub':
     case 'publish':
       publish();
       break;
