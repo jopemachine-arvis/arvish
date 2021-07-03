@@ -1,11 +1,11 @@
 {
 	"name": "arvish",
-	"version": "0.3.6",
+	"version": "0.4.3",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
-		"arvish-init": "dist/init.js",
-		"arvish-cleanup": "dist/cleanup.js"
+		"arvish-init": "dist/cli/link.js",
+		"arvish-cleanup": "dist/cli/cleanup.js"
 	},
 	"main": "dist/index.js",
 	"license": "MIT",
@@ -40,6 +40,7 @@
 		"arvis-extension-validator": "^0.2.0",
 		"arvis-linker": "^0.3.3",
 		"arvis-notifier": "^0.0.1",
+		"arvis-store": "^0.0.38",
 		"cache-conf": "^0.6.0",
 		"chalk": "^4.1.1",
 		"clean-stack": "^2.2.0",

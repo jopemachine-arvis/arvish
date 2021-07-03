@@ -21,5 +21,11 @@ Usage
         $ arvish validate workflow arvis-workflow.json
         $ arvish validate plugin arvis-plugin.json
 
+    To publish arvis-extension to arvis-store,
+        $ arvish publish
+
+    To retrieve arvis-extension informations,
+        $ arvish view [some_extension_name]
+
 See README.md for more details.
 `);

@@ -9,6 +9,7 @@ import pathExists from 'path-exists';
 import getHelpStr from './getHelpStr';
 import initPlugin from './initPlugin';
 import initWorkflow from './initWorkflow';
+import { publish, view } from './store';
 import { error } from './utils';
 import { zipExtensionFolder } from './zip';
 
@@ -63,6 +64,14 @@ const cliFunc = async (input: string[], flags?: any) => {
       } else {
         await convert(path.resolve(process.cwd(), 'info.plist'));
       }
+      break;
+
+    case 'publish':
+      publish();
+      break;
+
+    case 'view':
+      view(input.slice(1));
       break;
 
     case 'validate':

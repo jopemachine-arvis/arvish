@@ -43,6 +43,22 @@ $ arvish validate workflow arvis-workflow.json
 $ arvish validate plugin arvis-plugin.json
 ```
 
+## How to publish arvis-extension
+
+To publish arvis-extension to arvis-store,
+
+```
+$ arvish publish
+```
+
+## How to view extension info
+
+To retrieve arvis-extension informations,
+
+```
+$ arvish view [some_extension_name]
+```
+
 ## Summary
 
 ```
@@ -57,11 +73,19 @@ Usage
         $ arvish convert
         $ arvish convert info.plist
 
-    To build arvis-extension's directory to installer file, 
+    To build arvis-extension's directory to installer file,
         $ arvish build
         $ arvish build workflow /Users/user/Destop/some_extension
 
     To validate arvis-extension json file,
         $ arvish validate workflow arvis-workflow.json
         $ arvish validate plugin arvis-plugin.json
+
+    To publish arvis-extension to arvis-store,
+        $ arvish publish
+
+    To retrieve arvis-extension informations,
+        $ arvish view [some_extension_name]
+
+See README.md for more details.
 ```

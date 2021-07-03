@@ -2,7 +2,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import username from 'username';
 
-const mock = {
+const skeleton = {
   $schema:
     'https://raw.githubusercontent.com/jopemachine/arvis-extension-validator/master/workflow-schema.json',
   creator: '',
@@ -17,17 +17,17 @@ const mock = {
 };
 
 export default async (name?: string) => {
-  mock.name = name ?? path.basename(process.cwd());
+  skeleton.name = name ?? path.basename(process.cwd());
 
   try {
-    mock.creator = (await username()) ?? '';
+    skeleton.creator = (await username()) ?? '';
   } catch (err) {
     // skip initialize value
   }
 
   await fse.writeJSON(
     path.resolve(process.cwd(), 'arvis-workflow.json'),
-    mock,
+    skeleton,
     {
       encoding: 'utf8',
       spaces: 4
