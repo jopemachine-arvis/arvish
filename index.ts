@@ -210,7 +210,7 @@ ${stack}`
     currentExe: getEnv('platform_currentExe'),
   },
 
-  input: process.argv[2],
+  input: process.argv[2] ? process.argv[2] : '',
 
   config: getEnv('extension_data')
     ? new Conf({

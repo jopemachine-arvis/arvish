@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.4.5",
+	"version": "0.4.6",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -40,7 +40,7 @@
 		"arvis-extension-validator": "^0.2.0",
 		"arvis-linker": "^0.3.3",
 		"arvis-notifier": "^0.0.1",
-		"arvis-store": "^0.1.8",
+		"arvis-store": "^0.1.9",
 		"cache-conf": "^0.6.0",
 		"chalk": "^4.1.1",
 		"clean-stack": "^2.2.0",
