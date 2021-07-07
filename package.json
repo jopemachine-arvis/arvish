@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.4.7",
+	"version": "0.4.8",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -8,6 +8,7 @@
 		"arvish-cleanup": "dist/cli/cleanup.js",
 		"arvish-prepublish": "dist/cli/prepublish.js"
 	},
+	"repository": "jopemachine/arvish",
 	"main": "dist/index.js",
 	"license": "MIT",
 	"engines": {
@@ -36,7 +37,7 @@
 		"url": "https://github.com/jopemachine/arvish"
 	},
 	"dependencies": {
-		"alfred-to-arvis": "^0.0.4",
+		"alfred-to-arvis": "^0.0.5",
 		"archiver": "^5.3.0",
 		"arvis-extension-validator": "^0.2.1",
 		"arvis-linker": "^0.3.3",
