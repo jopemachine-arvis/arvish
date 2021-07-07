@@ -1,85 +1,59 @@
-import archiver from 'archiver';
-import { validate as validateJson } from 'arvis-extension-validator';
+import { validate } from 'arvis-extension-validator';
 import chalk from 'chalk';
-import fg from 'fast-glob';
-import fs from 'fs';
 import fse from 'fs-extra';
-import ora, { Ora } from 'ora';
 import path from 'path';
-import { error } from './utils';
+import pathExists from 'path-exists';
+import { zipExtensionFolder } from '../lib/build';
 
-/**
- * @param  {string} type
- */
-export const zipExtensionFolder = async (
-  source: string,
-  type: 'workflow' | 'plugin'
-): Promise<void> => {
-  try {
-    const json = await fse.readJSON(
-      `${process.cwd()}${path.sep}arvis-${type}.json`
-    );
+export const buildHandler = async (input: string[]): Promise<void> => {
+  if (input[1] && input[2]) {
 
-    const { errorMsg, valid } = validateJson(json, type);
-
-    if (!valid) {
-      error(`Error: It seems that arvis-${type}.json file is not valid\n`);
-      error(errorMsg);
-      return;
+    if (input[2] !== 'workflow' && input[2] !== 'plugin') {
+      throw new Error('Error: Specify second argument as \'workflow\' or \'plugin\'');
     }
 
-    const bundleId = `${json.creator}.${json.name}`;
-    const target = path.resolve(source, `${bundleId}.arvis${type}`);
+    const { valid, errorMsg } = validate(await fse.readJSON(input[2]), input[1] as 'workflow' | 'plugin');
 
-    const spinner = ora({
-      color: 'cyan',
-      discardStdin: true
-    }).start(chalk.whiteBright(`Creating '${bundleId}.arvis${type}'..`));
+    if (valid) {
+      await zipExtensionFolder(process.cwd(), input[1] as 'workflow' | 'plugin');
+    } else {
+      throw new Error(errorMsg);
+    }
 
-    await zipCurrentDir(source, target, spinner);
-    spinner.succeed();
-  } catch (err) {
-    console.error(err);
-  }
-};
+    await zipExtensionFolder(input[2], input[1] as 'workflow' | 'plugin');
+  } else {
 
-/**
- * @param  {string} out
- * @returns {Promise<void>}
- */
-const zipCurrentDir = async (
-  source: string,
-  out: string,
-  spinner: Ora
-): Promise<void> => {
-  const archive = archiver('zip', { zlib: { level: 9 } });
-  const stream = fs.createWriteStream(out);
-  const targetFileName = out.split(path.sep).pop();
-  if (!targetFileName) throw new Error('Target file name not exist');
+    const workflowPath = path.resolve(process.cwd(), 'arvis-workflow.json');
+    const pluginPath = path.resolve(process.cwd(), 'arvis-plugin.json');
 
-  return new Promise((resolve, reject) => {
-    fg(['^[.].*', 'package-lock.json', 'yarn.lock'], {
-      cwd: process.cwd(),
-      dot: true,
-      globstar: false,
-      followSymbolicLinks: false
-    }).then(ignoredFiles => {
-      for (const ignoreFile of ignoredFiles) {
-        spinner.warn(chalk.dim(`'${ignoreFile}' is ignored..`)).start();
+    if (
+      await pathExists(workflowPath)
+    ) {
+      const { valid, errorMsg } = validate(await fse.readJSON(workflowPath), 'workflow');
+      if (valid) {
+        await zipExtensionFolder(process.cwd(), 'workflow');
+      } else {
+        throw new Error(errorMsg);
       }
+    }
 
-      archive
-        .glob('**', {
-          cwd: source,
-          ignore: ['^[.].*', 'package-lock.json', 'yarn.lock', targetFileName]
-        })
-        .on('error', reject)
-        .pipe(stream);
+    else if (
+      await pathExists(pluginPath)
+    ) {
+      const { valid, errorMsg } = validate(await fse.readJSON(pluginPath), 'plugin');
+      if (valid) {
+        await zipExtensionFolder(process.cwd(), 'plugin');
+      } else {
+        throw new Error(errorMsg);
+      }
+    }
 
-      stream.on('close', resolve);
-      archive.finalize();
-    });
-  });
+    else {
+      throw new Error(
+        'Error: It seems that current directoy is not arvis extension\'s directory'
+      );
+    }
+  }
+
+  console.log(chalk.green('Jobs done!'));
 };
-
-export { zipCurrentDir };

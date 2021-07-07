@@ -19,7 +19,8 @@
         "ban-types": false,
         "indent": [
             true,
-            "spaces"
+            "spaces",
+            2
         ],
         "ordered-imports": true,
         "no-var-keyword": true,

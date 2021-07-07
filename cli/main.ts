@@ -5,13 +5,12 @@ import chalk from 'chalk';
 import fse from 'fs-extra';
 import meow from 'meow';
 import path from 'path';
-import pathExists from 'path-exists';
-import { zipExtensionFolder } from './build';
+import { error } from '../lib/utils';
+import { buildHandler } from './build';
 import getHelpStr from './getHelpStr';
 import initPlugin from './initPlugin';
 import initWorkflow from './initWorkflow';
 import { publish, view } from './store';
-import { error } from './utils';
 
 /**
  * @param  {string[]} input
@@ -32,30 +31,7 @@ const cliFunc = async (input: string[], flags?: any) => {
     }
 
     case 'build':
-      if (input[1] && input[2]) {
-        if (input[2] !== 'workflow' && input[2] !== 'plugin') {
-          error('Error: Specify second argument as \'workflow\' or \'plugin\'');
-          return '';
-        }
-
-        await zipExtensionFolder(input[2], input[1] as 'workflow' | 'plugin');
-      } else {
-        if (
-          await pathExists(path.resolve(process.cwd(), 'arvis-workflow.json'))
-        ) {
-          await zipExtensionFolder(process.cwd(), 'workflow');
-        } else if (
-          await pathExists(path.resolve(process.cwd(), 'arvis-plugin.json'))
-        ) {
-          await zipExtensionFolder(process.cwd(), 'plugin');
-        } else {
-          error(
-            'Error: It seems that current directoy is not arvis extension\'s directory'
-          );
-          return '';
-        }
-      }
-      console.log(chalk.green('Jobs done!'));
+      await buildHandler(input);
       break;
 
     case 'convert':
