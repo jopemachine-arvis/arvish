@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { validate } from 'arvis-extension-validator';
 import chalk from 'chalk';
 import findUp from 'find-up';
@@ -7,7 +8,7 @@ import path from 'path';
 const extensionJsonPath = findUp.sync(['arvis-workflow.json', 'arvis-plugin.json'], { allowSymlinks: false, type: 'file' });
 
 if (!extensionJsonPath) {
-  console.error(chalk.red('Extension file not found!'));
+  console.error(chalk.red('It seems current directory is not arvis extension directory.'));
   process.exit(1);
 }
 
@@ -30,4 +31,4 @@ if (!valid) {
   process.exit(1);
 }
 
-console.log(chalk.white('✔️ validate extension.'));
+console.log(chalk.white('✔️ valid extension format'));
