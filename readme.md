@@ -56,6 +56,8 @@ After publishing your extension to npm, your users can easily install or update 
 $ npm install --global arvis-unicorn
 ```
 
+* You can also automatically check your extension validation by adding `prepublishOnly` to `arvish-prepublish`.
+
 ## Environment variables
 
 Arvis lets users set environment variables for a extension which can then be used by that extension. This can be useful if you, for example, need the user to specify an API token for a service. You can access the extension environment variables from [`process.env`](https://nodejs.org/api/process.html#process_process_env). For example `process.env.apiToken`.

@@ -6,12 +6,12 @@ import fse from 'fs-extra';
 import meow from 'meow';
 import path from 'path';
 import pathExists from 'path-exists';
+import { zipExtensionFolder } from './build';
 import getHelpStr from './getHelpStr';
 import initPlugin from './initPlugin';
 import initWorkflow from './initWorkflow';
 import { publish, view } from './store';
 import { error } from './utils';
-import { zipExtensionFolder } from './zip';
 
 /**
  * @param  {string[]} input
