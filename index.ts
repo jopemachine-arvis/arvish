@@ -1,4 +1,3 @@
-import { checkUpdate } from 'arvis-notifier';
 import CacheConf from 'cache-conf';
 import cleanStack from 'clean-stack';
 import Conf from 'conf';
@@ -9,8 +8,9 @@ import loudRejection from 'loud-rejection';
 import os from 'os';
 import path from 'path';
 import ConfMock from './external/confMock';
+import CheckUpdate from './lib/updateNotifications';
 
-checkUpdate();
+CheckUpdate();
 
 interface FetchOptions extends GotOptions<string> {
   json?: boolean;

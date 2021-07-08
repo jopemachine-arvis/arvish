@@ -27,6 +27,16 @@ Check the below documents.
 
 Arvish uses [arvis-notifier](https://github.com/jopemachine/arvis-notifier) in the background to show a notification when an update for extensions is available.
 
+* If you don't want to use notification in your extension, add `arvish.updateNotification` to `false` in `package.json` like below.
+
+```json
+{
+	"arvish": {
+		"updateNotification": false
+	}
+}
+```
+
 ## Caching
 
 Arvish offers the possibility of caching data, either with the [fetch](#fetchurl-options) or directly through the [cache](#cache) object.
