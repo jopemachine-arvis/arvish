@@ -2,7 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/jopemachine/arvish/badge)](https://www.codefactor.io/repository/github/jopemachine/arvish)
 [![Known Vulnerabilities](https://snyk.io/test/github/jopemachine/arvish/badge.svg)]()
-[![BuildStatus](https://api.travis-ci.com/jopemachine/arvish.svg)](https://www.npmjs.com/package/arvish)
+![CI](https://github.com/jopemachine/arvish/actions/workflows/main.yml/badge.svg)
 [![NPM download total](https://img.shields.io/npm/dt/arvish)](http://badge.fury.io/js/arvish)
 [![NPM version](https://badge.fury.io/js/arvish.svg)](http://badge.fury.io/js/arvish)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
