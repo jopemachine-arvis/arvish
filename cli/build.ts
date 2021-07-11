@@ -55,5 +55,5 @@ export const buildHandler = async (input: string[]): Promise<void> => {
     }
   }
 
-  console.log(chalk.green('Jobs done!'));
+  console.log(chalk.white(`${chalk.green('✔️')} Jobs done`));
 };

@@ -31,4 +31,4 @@ if (!valid) {
   process.exit(1);
 }
 
-console.log(chalk.white('✔️ valid extension format'));
+console.log(chalk.white(`${chalk.green('✔️')} valid extension format`));
