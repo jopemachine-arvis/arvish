@@ -58,7 +58,7 @@ const zipCurrentDir = async (
   if (!targetFileName) throw new Error('Target file name not exist');
 
   return new Promise((resolve, reject) => {
-    fg(['[.].*', 'package-lock.json', 'yarn.lock'], {
+    fg(['.**', 'package-lock.json', 'yarn.lock'], {
       cwd: process.cwd(),
       dot: true,
       deep: 1,
