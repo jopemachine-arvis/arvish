@@ -13,6 +13,8 @@ const skeleton = {
   readme: '',
   version: '0.0.1',
   webAddress: '',
+  main: 'index.js',
+  defaultIcon: 'icon.png',
   actions: []
 };
 
@@ -27,6 +29,7 @@ export default async (name?: string) => {
     skeleton.webAddress = pkg.homepage || '';
     skeleton.description = pkg.description || '';
     skeleton.version = pkg.version || '0.0.1';
+    skeleton.main = pkg.main || 'index.js';
   }
 
   try {

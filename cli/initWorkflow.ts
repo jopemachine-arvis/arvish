@@ -13,6 +13,7 @@ const skeleton = {
   readme: '',
   version: '0.0.1',
   webAddress: '',
+  defaultIcon: 'icon.png',
   commands: []
 };
 
