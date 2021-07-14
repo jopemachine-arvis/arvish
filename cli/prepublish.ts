@@ -19,6 +19,11 @@ const pkg = pkgExist ? fse.readJSONSync(pkgPath) : undefined;
 const info = fse.readJSONSync(extensionJsonPath!);
 const type = extensionJsonPath.endsWith('arvis-workflow.json') ? 'workflow' : 'plugin';
 
+if (pkg.name !== info.name) {
+  console.error('Make sure the package name is the same as the extension name.');
+  process.exit(1);
+}
+
 if (pkg.version !== info.version) {
   console.error('Make sure the package version is the same as the extension version.');
   process.exit(1);
