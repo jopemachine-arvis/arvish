@@ -17,17 +17,17 @@ Arvish has both the Cli tools and libraries needed to create `extension`
 
 Check the below documents.
 
-* [Cli](./documents/cli.md)
+* [Cli tools for creating arvis-extensions](./documents/cli.md)
 
-* [Library for workflow](./documents/lib-workflow.md)
+* [Libraries for creating workflow](./documents/lib-workflow.md)
 
-* [Library for plugin](./documents/lib-plugin.md)
+* [Libraries for creating plugin](./documents/lib-plugin.md)
 
 ## Update notifications
 
-Arvish uses [arvis-notifier](https://github.com/jopemachine/arvis-notifier) in the background to show a notification when an update for extensions is available.
+Arvish uses [arvis-notifier](https://github.com/jopemachine/arvis-notifier) in the background to show a notification when an extension update is available.
 
-* If you don't want to use notification in your extension, add `arvish.updateNotification` to `false` in `package.json` like below.
+Tip: If you don't want to use notification in your extension, add `arvish.updateNotification` to `false` in `package.json` like below.
 
 ```json
 {
