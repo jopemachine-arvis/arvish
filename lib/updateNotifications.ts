@@ -7,7 +7,7 @@ export default async () => {
   const currentDir = __dirname.split(path.sep).slice(0, -2).join(path.sep);
   const pkgPath = await findUp('package.json', { cwd: currentDir });
   if (!pkgPath) {
-      throw new Error('Extension\'s package.json not found!');
+      throw new Error('❌ Extension\'s package.json not found!');
   }
 
   const pkg = await fse.readJSON(pkgPath);

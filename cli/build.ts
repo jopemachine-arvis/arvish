@@ -9,7 +9,7 @@ export const buildHandler = async (input: string[]): Promise<void> => {
   if (input[1] && input[2]) {
 
     if (input[2] !== 'workflow' && input[2] !== 'plugin') {
-      throw new Error('Error: Specify second argument as \'workflow\' or \'plugin\'');
+      throw new Error('❌ Error: Specify second argument as \'workflow\' or \'plugin\'');
     }
 
     const { valid, errorMsg } = validate(await fse.readJSON(input[2]), input[1] as 'workflow' | 'plugin');
@@ -50,7 +50,7 @@ export const buildHandler = async (input: string[]): Promise<void> => {
 
     else {
       throw new Error(
-        'Error: It seems that current directoy is not arvis extension\'s directory'
+        '❌ Error: It seems that current directoy is not arvis extension\'s directory'
       );
     }
   }

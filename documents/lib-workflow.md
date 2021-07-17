@@ -232,6 +232,15 @@ await arvish.fetch('https://api.foo.com', {
 })
 ```
 
+#### icon
+
+Type: `object`\
+Keys: `'info' | 'warning' | 'error' | 'alert' | 'like' | 'delete'`
+
+Get various default system icons.
+
+The most useful ones are included as keys.
+
 #### config
 
 Type: `object`

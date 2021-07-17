@@ -22,11 +22,11 @@ const cliFunc = async (input: string[], flags?: any) => {
     case 'init': {
       if (input[1] === 'plugin') {
         initPlugin(input[2]);
-        console.log(chalk.cyan(`Created arvis-plugin.json..`));
+        console.log(chalk.white(`${chalk.green('✔️')} Created arvis-plugin.json.`));
       } else if (input[1] === 'workflow') {
         initWorkflow(input[2]);
-        console.log(chalk.cyan(`Created arvis-workflow.json..`));
-      } else error('Error: Specify second argument as \'workflow\' or \'plugin\'');
+        console.log(chalk.white(`${chalk.green('✔️')} Created arvis-workflow.json.`));
+      } else error('❌ Error: Specify second argument as \'workflow\' or \'plugin\'');
       break;
     }
 
@@ -60,11 +60,14 @@ const cliFunc = async (input: string[], flags?: any) => {
         );
         if (valid) console.log(chalk.greenBright(`${cli.input[2]} is valid`));
         else {
-          error('Not valid file.\n\nReason:\n');
+          error('❌ Not valid file.\n\nReason:\n');
           error(errorMsg);
         }
       });
       break;
+
+    default:
+      console.log(getHelpStr());
   }
 
   return '';

@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -20,12 +20,7 @@
 		"lint": "tslint --project tsconfig.json --fix"
 	},
 	"files": [
-		"dist/**",
-		"documents/*.md",
-		"readme.md",
-		"license",
-		"license-alfy",
-		"package.json"
+		"dist/**"
 	],
 	"keywords": [
 		"arvis",
@@ -45,7 +40,7 @@
 		"arvis-extension-validator": "^0.2.2",
 		"arvis-linker": "^0.4.5",
 		"arvis-notifier": "^0.0.1",
-		"arvis-store": "^0.2.9",
+		"arvis-store": "^0.2.10",
 		"cache-conf": "^0.6.0",
 		"chalk": "^4.1.1",
 		"clean-stack": "^2.2.0",

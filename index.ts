@@ -19,7 +19,7 @@ interface FetchOptions extends GotOptions<string> {
 }
 
 const getIcon = (iconName: string) => {
-  if (!iconName) return 'icon name is not valid.';
+  if (!iconName) return 'Icon name is not valid.';
   return path.resolve(__dirname, 'assets', iconName);
 };
 
