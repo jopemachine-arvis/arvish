@@ -1,6 +1,6 @@
 {
 	"name": "arvish",
-	"version": "0.6.2",
+	"version": "0.6.3",
 	"description": "Arvis workflow, plugin creator tools",
 	"bin": {
 		"arvish": "dist/cli/main.js",
@@ -20,7 +20,8 @@
 		"lint": "tslint --project tsconfig.json --fix"
 	},
 	"files": [
-		"dist/**"
+		"dist/**",
+		"assets/*.png"
 	],
 	"keywords": [
 		"arvis",
