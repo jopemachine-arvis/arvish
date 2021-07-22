@@ -3,6 +3,7 @@ import convert from 'alfred-to-arvis';
 import { validate as validateJson } from 'arvis-extension-validator';
 import chalk from 'chalk';
 import fse from 'fs-extra';
+import logSymbols from 'log-symbols';
 import meow from 'meow';
 import path from 'path';
 import { error } from '../lib/utils';
@@ -22,11 +23,11 @@ const cliFunc = async (input: string[], flags?: any) => {
     case 'init': {
       if (input[1] === 'plugin') {
         initPlugin(input[2]);
-        console.log(chalk.white(`${chalk.green('✔️')} Created arvis-plugin.json.`));
+        console.log(chalk.white(`${logSymbols.success} Created arvis-plugin.json.`));
       } else if (input[1] === 'workflow') {
         initWorkflow(input[2]);
-        console.log(chalk.white(`${chalk.green('✔️')} Created arvis-workflow.json.`));
-      } else error('❌ Error: Specify second argument as \'workflow\' or \'plugin\'');
+        console.log(chalk.white(`${logSymbols.success} Created arvis-workflow.json.`));
+      } else error('Error: Specify second argument as \'workflow\' or \'plugin\'');
       break;
     }
 
@@ -60,7 +61,7 @@ const cliFunc = async (input: string[], flags?: any) => {
         );
         if (valid) console.log(chalk.greenBright(`${cli.input[2]} is valid`));
         else {
-          error('❌ Not valid file.\n\nReason:\n');
+          error('Not valid file.\n\nReason:\n');
           error(errorMsg);
         }
       });

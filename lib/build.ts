@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import fg from 'fast-glob';
 import fs from 'fs';
 import fse from 'fs-extra';
+import logSymbols from 'log-symbols';
 import ora, { Ora } from 'ora';
 import path from 'path';
 import { error } from './utils';
@@ -55,7 +56,7 @@ const zipCurrentDir = async (
   const archive = archiver('zip', { zlib: { level: 9 } });
   const stream = fs.createWriteStream(out);
   const targetFileName = out.split(path.sep).pop();
-  if (!targetFileName) throw new Error('❌ Target file name not exist');
+  if (!targetFileName) throw new Error(`${logSymbols.error} Target file name not exist`);
 
   return new Promise((resolve, reject) => {
     fg(['.**', 'package-lock.json', 'yarn.lock'], {

@@ -3,12 +3,13 @@ import { validate } from 'arvis-extension-validator';
 import chalk from 'chalk';
 import findUp from 'find-up';
 import fse from 'fs-extra';
+import logSymbols from 'log-symbols';
 import path from 'path';
 
 const extensionJsonPath = findUp.sync(['arvis-workflow.json', 'arvis-plugin.json'], { allowSymlinks: false, type: 'file' });
 
 if (!extensionJsonPath) {
-  console.error(chalk.red('❌ It seems current directory is not arvis extension directory.'));
+  console.error(chalk.red(`${logSymbols.error} It seems current directory is not arvis extension directory.`));
   process.exit(1);
 }
 
@@ -20,12 +21,12 @@ const info = fse.readJSONSync(extensionJsonPath!);
 const type = extensionJsonPath.endsWith('arvis-workflow.json') ? 'workflow' : 'plugin';
 
 if (pkg.name !== info.name) {
-  console.error('❌ Make sure the package name is the same as the extension name.');
+  console.error(`${logSymbols.error} Make sure the package name is the same as the extension name.`);
   process.exit(1);
 }
 
 if (pkg.version !== info.version) {
-  console.error('❌ Make sure the package version is the same as the extension version.');
+  console.error(`${logSymbols.error} Make sure the package version is the same as the extension version.`);
   process.exit(1);
 }
 
@@ -36,4 +37,4 @@ if (!valid) {
   process.exit(1);
 }
 
-console.log(chalk.white(`${chalk.green('✔️')} valid extension format`));
+console.log(chalk.white(`${logSymbols.success} valid extension format`));

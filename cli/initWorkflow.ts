@@ -25,9 +25,9 @@ export default async (name?: string) => {
 
   if (pkgExist) {
     const pkg = await fse.readJson(pkgPath);
-    skeleton.webAddress = pkg.homepage || '';
-    skeleton.description = pkg.description || '';
-    skeleton.version = pkg.version || '0.0.1';
+    skeleton.webAddress = pkg.homepage || skeleton.webAddress;
+    skeleton.description = pkg.description || skeleton.description;
+    skeleton.version = pkg.version || skeleton.version;
   }
 
   try {
