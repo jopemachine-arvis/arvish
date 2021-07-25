@@ -2,21 +2,18 @@ import CacheConf from 'cache-conf';
 import cleanStack from 'clean-stack';
 import Conf from 'conf';
 import dotProp from 'dot-prop';
-import got, { GotOptions } from 'got';
+import got from 'got';
 import hookStd from 'hook-std';
 import loudRejection from 'loud-rejection';
 import os from 'os';
+import parseJson from 'parse-json';
 import path from 'path';
 import ConfMock from './external/confMock';
 import CheckUpdate from './lib/updateNotifications';
 
-CheckUpdate();
+import './types';
 
-interface FetchOptions extends GotOptions<string> {
-  json?: boolean;
-  maxAge?: number;
-  transform?: Function;
-}
+CheckUpdate();
 
 const getIcon = (iconName: string) => {
   if (!iconName) return 'Icon name is not valid.';
@@ -25,15 +22,48 @@ const getIcon = (iconName: string) => {
 
 const getEnv = (key: string) => process.env[`arvis_${key}`];
 
+/**
+ * Obtain environment variable value with proper type.
+ * @param type
+ * @param key
+ */
+const getEnvWithType = (type: 'number' | 'json' | 'string', key: string) => {
+  const target = process.env[key];
+
+  if (type === 'json') {
+    return parseJson(target!);
+  }
+  if (type === 'number') {
+    return Number(target);
+  }
+
+  return target;
+};
+
 const arvish = {
   /**
-   * @param  {object} items
-   * @param  {{rerunInterval?:number;variables?:object}={}} options
-   */
+  Return output to arvis.
+  @param items
+  @param options
+  @param variables
+  @example
+  ```
+  arvish.output([
+    {
+      title: 'Unicorn'
+    },
+    {
+      title: 'Rainbow'
+    }
+  ]);
+  ```
+  */
   output: (
-    items: object,
-    options: { rerunInterval?: number; variables?: object } = {}
+    items: ScriptFilterItem[],
+    options?: OutputOptions
   ): object => {
+    options = options || {};
+
     const output = {
       items,
       rerun: options.rerunInterval,
@@ -47,49 +77,63 @@ const arvish = {
   },
 
   /**
-   * @param  {string} input
-   * @param  {any} list
-   * @param  {string|Function} item
-   */
-  matches: (input: string, list: any, item: string | Function) => {
+  Returns an string[] of items in list that case-insensitively contains input.
+  @param input
+  @param list
+  @param target
+  @returns string[] of items in list that case-insensitively contains input.
+
+  @example
+  ```
+  arvish.matches('Corn', ['foo', 'unicorn']);
+  //=> ['unicorn']
+  ```
+  */
+  matches: (input: string, list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)): (string | ScriptFilterItem)[] => {
     input = input.toLowerCase().normalize();
 
-    return list.filter((x: any) => {
-      if (typeof item === 'string') {
-        x = dotProp.get(x, item);
+    return list.filter((x: string | ScriptFilterItem) => {
+      if (typeof target === 'string') {
+        x = dotProp.get((x as ScriptFilterItem), target)!;
       }
 
       if (typeof x === 'string') {
         x = x.toLowerCase();
       }
 
-      if (typeof item === 'function') {
-        return item(x, input);
+      if (typeof target === 'function') {
+        return target(x, input);
       }
 
-      return x.includes(input);
+      return (x as string).includes(input);
     });
   },
 
   /**
-   * @param  {string[]} list
-   * @param  {string|Function} item
-   */
-  inputMatches: (list: string[], item: string | Function) =>
-    arvish.matches(arvish.input, list, item),
+  Same as matches(), but with `arvish.input` as input.
+  @param list
+  @param target
+  @returns string[] of items in list that case-insensitively contains `arvish.input`.
+  */
+  inputMatches: (list: (string | ScriptFilterItem)[], target?: string | ((item: string | ScriptFilterItem, input: string) => boolean)): (string | ScriptFilterItem)[] =>
+    arvish.matches(arvish.input, list, target),
 
   /**
-   * @param  {string} text
-   */
+  Log value to the arvis workflow debugger.
+  @param text
+  */
   log: (text: string): void => {
     console.error(text);
   },
 
   /**
-   * @param  {any} error
-   */
-  error: (error: any): void => {
-    const stack = cleanStack(error.stack || error);
+  Display an error or error message in arvis.
+  You don't need to .catch() top-level promises.
+  arvish handles that for you.
+  @param error
+  */
+  error: (error: Error | string): void => {
+    const stack = cleanStack((error as Error).stack || (error as string));
     const largeTextKey = process.platform === 'darwin' ? '⌘L' : 'Ctrl + L';
     const copyKey = process.platform === 'darwin' ? '⌘C' : 'Ctrl + C';
 
@@ -107,7 +151,7 @@ ${process.platform} ${os.release()}
     if (getEnv('extension_type') === 'workflow') {
       arvish.output([
         {
-          title: error.stack ? `${error.name}: ${error.message}` : error,
+          title: (error as Error).stack ? `${(error as Error).name}: ${(error as Error).message}` : (error as string),
           subtitle: `Press ${largeTextKey} to see the full error and ${copyKey} to copy it.`,
           valid: false,
           text: {
@@ -122,7 +166,7 @@ ${process.platform} ${os.release()}
     } else {
       console.error(
 `In '${getEnv('extension_name')}' plugin, below error occured.
-${error.stack ? `${error.name}: ${error.message}` : error}
+${(error as Error).stack ? `${(error as Error).name}: ${(error as Error).message}` : error}
 
 ${stack}`
       );
@@ -130,9 +174,21 @@ ${stack}`
   },
 
   /**
-   * @param  {string} url
-   * @param  {FetchOptions} options?
-   */
+  Returns a Promise that returns the body of the response.
+  @param url
+  @param options
+  @returns Body of the response.
+
+  @example
+  ```
+  await arvish.fetch('https://api.foo.com', {
+    transform: body => {
+      body.foo = 'bar';
+      return body;
+    }
+  })
+  ```
+  */
   fetch: async (url: string, options?: FetchOptions) => {
     options = {
       json: true,
@@ -185,6 +241,17 @@ ${stack}`
     return data;
   },
 
+  /**
+  @example
+  ```
+  {
+    name: 'Emoj',
+    version: '0.2.5',
+    uid: 'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
+    bundleId: 'com.sindresorhus.emoj'
+  }
+  ```
+  */
   meta: {
     name: getEnv('extension_name'),
     version: getEnv('extension_version'),
@@ -193,6 +260,7 @@ ${stack}`
   },
 
   env: {
+    get: getEnvWithType,
     data: getEnv('extension_data'),
     cache: getEnv('extension_cache'),
     history: getEnv('extension_history'),
@@ -212,8 +280,23 @@ ${stack}`
     }
   },
 
+  /**
+  Input from arvis. What the user wrote in the input box.
+  */
   input: process.argv[2] ? process.argv[2] : '',
 
+  /**
+  Persist config data.
+  Exports a conf instance with the correct config path set.
+
+  @example
+  ```
+  arvish.config.set('unicorn', '🦄');
+
+  arvish.config.get('unicorn');
+  //=> '🦄'
+  ```
+  */
   config: getEnv('extension_data')
     ? new Conf({
         cwd: getEnv('extension_data'),
@@ -221,6 +304,18 @@ ${stack}`
       })
     : new ConfMock(),
 
+  /**
+  Persist cache data.
+  Exports a modified conf instance with the correct cache path set.
+
+  @example
+  ```
+  arvish.cache.set('unicorn', '🦄');
+
+  arvish.cache.get('unicorn');
+  //=> '🦄'
+  ```
+  */
   cache: getEnv('extension_cache')
     ? new CacheConf({
         configName: getEnv('extension_name'),
@@ -229,6 +324,9 @@ ${stack}`
       })
     : new ConfMock(),
 
+  /**
+  Get various useful icons.
+  */
   icon: {
     info: getIcon('info'),
     warning: getIcon('warning'),

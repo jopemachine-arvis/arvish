@@ -25,6 +25,7 @@
         "ordered-imports": true,
         "no-var-keyword": true,
         "prefer-const": true,
-        "no-string-literal": false
+        "no-string-literal": false,
+        "jsdoc-format": false
     }
 }

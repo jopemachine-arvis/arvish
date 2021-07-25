@@ -1,80 +1,86 @@
 {
-	"name": "arvish",
-	"version": "0.6.4",
-	"description": "Arvis workflow, plugin creator tools",
-	"bin": {
-		"arvish": "dist/cli/main.js",
-		"arvish-init": "dist/cli/link.js",
-		"arvish-cleanup": "dist/cli/cleanup.js",
-		"arvish-prepublish": "dist/cli/prepublish.js"
-	},
-	"repository": "jopemachine/arvish",
-	"main": "dist/index.js",
-	"license": "MIT",
-	"engines": {
-		"node": ">=12"
-	},
-	"scripts": {
-		"test": "ava",
-		"build": "tsc",
-		"lint": "tslint --project tsconfig.json --fix"
-	},
-	"files": [
-		"dist/**",
-		"assets/*.png"
-	],
-	"keywords": [
-		"arvis",
-		"arvis-workflow",
-		"arvis-plugin",
-		"arvish"
-	],
-	"bugs": {
-		"url": "https://github.com/jopemachine/arvish"
-	},
-	"maintainers": [
-		"jopemachine"
-	],
-	"dependencies": {
-		"alfred-to-arvis": "^0.0.7",
-		"archiver": "^5.3.0",
-		"arvis-extension-validator": "^0.2.2",
-		"arvis-linker": "^0.4.5",
-		"arvis-notifier": "^0.0.1",
-		"arvis-store": "^0.2.10",
-		"cache-conf": "^0.6.0",
-		"chalk": "^4.1.1",
-		"clean-stack": "^2.2.0",
-		"conf": "^5.0.0",
-		"dot-prop": "^5.1.0",
-		"execa": "^2.1.0",
-		"fast-glob": "^3.2.5",
-		"find-up": "^5.0.0",
-		"fs-extra": "^10.0.0",
-		"got": "^9.3.2",
-		"hook-std": "^2.0.0",
-		"log-symbols": "^4.1.0",
-		"loud-rejection": "^2.1.0",
-		"meow": "^9.0.0",
-		"ora": "^5.4.1",
-		"path-exists": "^4.0.0",
-		"username": "^5.1.0"
-	},
-	"devDependencies": {
-		"@types/archiver": "^5.1.0",
-		"@types/fs-extra": "^9.0.11",
-		"@types/got": "^9.6.11",
-		"ava": "^2.3.0",
-		"delay": "^4.4.1",
-		"husky": "^4.2.5",
-		"nock": "^13.1.0",
-		"tempfile": "^3.0.0",
-		"typescript": "^4.3.2"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run test && npm run lint",
-			"pre-push": "npm run test && npm run lint"
-		}
-	}
+  "name": "arvish",
+  "version": "0.7.0",
+  "description": "Arvis workflow, plugin creator tools",
+  "bin": {
+    "arvish": "dist/cli/main.js",
+    "arvish-init": "dist/cli/link.js",
+    "arvish-cleanup": "dist/cli/cleanup.js",
+    "arvish-prepublish": "dist/cli/prepublish.js"
+  },
+  "repository": "https://github.com/jopemachine/arvish",
+  "author": {
+    "name": "jopemachine",
+    "email": "jopemachine@gmail.com"
+  },
+  "main": "dist/index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "test": "ava",
+    "build": "tsc",
+    "lint": "tslint --project tsconfig.json --fix"
+  },
+  "files": [
+    "dist/**",
+    "assets/*.png"
+  ],
+  "keywords": [
+    "arvis",
+    "arvis-workflow",
+    "arvis-plugin",
+    "arvish",
+    "alfy"
+  ],
+  "bugs": {
+    "url": "https://github.com/jopemachine/arvish/issues"
+  },
+  "maintainers": [
+    "jopemachine"
+  ],
+  "dependencies": {
+    "alfred-to-arvis": "^0.0.7",
+    "archiver": "^5.3.0",
+    "arvis-extension-validator": "^0.2.2",
+    "arvis-linker": "^0.4.5",
+    "arvis-notifier": "^0.0.1",
+    "arvis-store": "^0.2.10",
+    "cache-conf": "^0.6.0",
+    "chalk": "^4.1.1",
+    "clean-stack": "^2.2.0",
+    "conf": "^5.0.0",
+    "dot-prop": "^5.1.0",
+    "execa": "^2.1.0",
+    "fast-glob": "^3.2.5",
+    "find-up": "^5.0.0",
+    "fs-extra": "^10.0.0",
+    "got": "^9.3.2",
+    "hook-std": "^2.0.0",
+    "log-symbols": "^4.1.0",
+    "loud-rejection": "^2.1.0",
+    "meow": "^9.0.0",
+    "ora": "^5.4.1",
+    "parse-json": "^5.2.0",
+    "path-exists": "^4.0.0",
+    "username": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^5.1.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/got": "^9.6.11",
+    "ava": "^2.3.0",
+    "delay": "^4.4.1",
+    "husky": "^4.2.5",
+    "nock": "^13.1.0",
+    "tempfile": "^3.0.0",
+    "typescript": "^4.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test && npm run lint",
+      "pre-push": "npm run test && npm run lint"
+    }
+  }
 }
