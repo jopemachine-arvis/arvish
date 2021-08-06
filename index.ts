@@ -8,9 +8,9 @@ import loudRejection from 'loud-rejection';
 import os from 'os';
 import parseJson from 'parse-json';
 import path from 'path';
+import { FetchOptions, ScriptFilterItem, OutputOptions } from './types';
 import ConfMock from './external/confMock';
 import CheckUpdate from './lib/updateNotifications';
-import {FetchOptions, OutputOptions, ScriptFilterItem} from './types';
 
 CheckUpdate();
 
@@ -72,7 +72,6 @@ const arvish = {
 
 	@param items
 	@param options
-	@param variables
 
 	@example
 	```
@@ -159,7 +158,7 @@ const arvish = {
 	},
 
 	/**
-	Display an error or error message in arvis.
+	Display an error or error message in Arvis.
 
 	**Note:** You don't need to `.catch()` top-level promises. Arvish handles that for you.
 

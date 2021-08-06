@@ -1,6 +1,6 @@
 {
   "name": "arvish",
-  "version": "0.8.0",
+  "version": "0.8.3",
   "description": "Arvis workflow, plugin creator tools",
   "bin": {
     "arvish": "dist/cli/main.js",
@@ -15,7 +15,6 @@
     "name": "jopemachine",
     "email": "jopemachine@gmail.com"
   },
-  "types": "types.d.ts",
   "os": [
     "darwin",
     "win32",
@@ -27,13 +26,12 @@
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava && tsd",
+    "test": "ava",
     "build": "rm -rf dist && tsc",
     "lint": "xo"
   },
   "files": [
     "dist/**",
-    "types.d.ts",
     "assets/*.png"
   ],
   "keywords": [
@@ -50,12 +48,12 @@
     "jopemachine"
   ],
   "dependencies": {
-    "alfred-to-arvis": "^0.0.7",
+    "alfred-to-arvis": ">=0.0.7",
     "archiver": "^5.3.0",
-    "arvis-extension-validator": "^0.2.3",
-    "arvis-linker": "^0.4.6",
-    "arvis-notifier": "^0.0.1",
-    "arvis-store": "^0.2.11",
+    "arvis-extension-validator": ">=0.2.3",
+    "arvis-linker": ">=0.4.6",
+    "arvis-notifier": ">=0.0.1",
+    "arvis-store": ">=0.2.11",
     "cache-conf": "^0.6.0",
     "chalk": "^4.1.1",
     "clean-stack": "^2.2.0",
@@ -85,7 +83,6 @@
     "husky": "^4.2.5",
     "nock": "^13.1.0",
     "tempfile": "^3.0.0",
-    "tsd": "^0.17.0",
     "typescript": "^4.3.2",
     "xo": "^0.39.1"
   },
