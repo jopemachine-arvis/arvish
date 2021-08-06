@@ -99,6 +99,8 @@ Note that below differences between arvish and alfy.
 
 - [arvis-store](https://github.com/jopemachine/arvis-store) - Publish and Retrieve Arvis extension info
 
+- [generator-arvis](https://github.com/jopemachine/generator-arvis) - Scaffold out an Arvis extension
+
 ## Icon sources
 
 This lib uses below icon sources
