@@ -2,7 +2,8 @@ import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 
 /**
- * @param  {string} errMsg
+ * @param errMsg
  */
-export const error = (errMsg: string) =>
-  console.error(`${logSymbols.error} ${chalk.bgRed(chalk.white(errMsg))}`);
+export const error = (errorMessage: string) => {
+	console.error(`${logSymbols.error} ${chalk.bgRed(chalk.white(errorMessage))}`);
+};

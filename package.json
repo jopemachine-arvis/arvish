@@ -1,6 +1,6 @@
 {
   "name": "arvish",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Arvis workflow, plugin creator tools",
   "bin": {
     "arvish": "dist/cli/main.js",
@@ -9,22 +9,31 @@
     "arvish-prepublish": "dist/cli/prepublish.js"
   },
   "repository": "https://github.com/jopemachine/arvish",
+  "homepage": "https://jopemachine.github.io/arvis.com/",
+  "contributors": [],
   "author": {
     "name": "jopemachine",
     "email": "jopemachine@gmail.com"
   },
+  "types": "types.d.ts",
+  "os": [
+    "darwin",
+    "win32",
+    "linux"
+  ],
   "main": "dist/index.js",
   "license": "MIT",
   "engines": {
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava",
-    "build": "tsc",
-    "lint": "tslint --project tsconfig.json --fix"
+    "test": "ava && tsd",
+    "build": "rm -rf dist && tsc",
+    "lint": "xo"
   },
   "files": [
     "dist/**",
+    "types.d.ts",
     "assets/*.png"
   ],
   "keywords": [
@@ -46,7 +55,7 @@
     "arvis-extension-validator": "^0.2.3",
     "arvis-linker": "^0.4.6",
     "arvis-notifier": "^0.0.1",
-    "arvis-store": "^0.2.10",
+    "arvis-store": "^0.2.11",
     "cache-conf": "^0.6.0",
     "chalk": "^4.1.1",
     "clean-stack": "^2.2.0",
@@ -56,8 +65,9 @@
     "fast-glob": "^3.2.5",
     "find-up": "^5.0.0",
     "fs-extra": "^10.0.0",
-    "got": "^9.3.2",
+    "got": "^11.8.2",
     "hook-std": "^2.0.0",
+    "junk": "^3.1.0",
     "log-symbols": "^4.1.0",
     "loud-rejection": "^2.1.0",
     "meow": "^9.0.0",
@@ -69,18 +79,19 @@
   "devDependencies": {
     "@types/archiver": "^5.1.0",
     "@types/fs-extra": "^9.0.11",
-    "@types/got": "^9.6.11",
     "ava": "^2.3.0",
     "delay": "^4.4.1",
+    "eslint-plugin-ava": "^12.0.0",
     "husky": "^4.2.5",
     "nock": "^13.1.0",
     "tempfile": "^3.0.0",
-    "typescript": "^4.3.2"
+    "tsd": "^0.17.0",
+    "typescript": "^4.3.2",
+    "xo": "^0.39.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run lint",
-      "pre-push": "npm run test && npm run lint"
+      "pre-commit": "npm run test"
     }
   }
 }
