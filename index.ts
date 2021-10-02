@@ -362,10 +362,10 @@ ${stack}`
 };
 
 loudRejection(arvish.error);
-hookStd.stderr(arvish.error);
 
 if (arvish.meta.type === 'workflow') {
-	process.on('uncaughtException', arvish.error);
+  process.on('uncaughtException', arvish.error);
+  hookStd.stderr(arvish.error);
 }
 
 export = arvish;
