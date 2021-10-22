@@ -1,6 +1,6 @@
 {
   "name": "arvish",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "description": "Arvis workflow, plugin creator tools",
   "bin": {
     "arvish": "dist/cli/main.js",
@@ -48,11 +48,11 @@
     "jopemachine"
   ],
   "dependencies": {
-    "alfred-to-arvis": ">=0.0.7",
+    "alfred-to-arvis": ">=0.0.8",
     "archiver": "^5.3.0",
-    "arvis-extension-validator": ">=0.2.3",
-    "arvis-linker": ">=0.4.6",
-    "arvis-notifier": ">=0.0.1",
+    "arvis-extension-validator": ">=0.3.0",
+    "arvis-linker": ">=0.5.0",
+    "arvis-notifier": ">=0.1.0",
     "arvis-store": ">=0.2.11",
     "cache-conf": "^0.6.0",
     "chalk": "^4.1.1",
@@ -65,6 +65,7 @@
     "fs-extra": "^10.0.0",
     "got": "^11.8.2",
     "hook-std": "^2.0.0",
+    "json5": "^2.2.0",
     "junk": "^3.1.0",
     "log-symbols": "^4.1.0",
     "loud-rejection": "^2.1.0",

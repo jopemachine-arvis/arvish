@@ -6,6 +6,7 @@ import fse from 'fs-extra';
 import logSymbols from 'log-symbols';
 import meow from 'meow';
 import path from 'path';
+import { readJson5 } from '../lib/readJson5';
 import {error} from '../lib/utils';
 import {buildHandler} from './build';
 import getHelpStr from './getHelpStr';
@@ -54,7 +55,7 @@ const cliFunc = async (input: string[], flags?: any) => {
 			break;
 
 		case 'validate':
-			fse.readJSON(cli.input[2]).then(jsonData => {
+			readJson5(cli.input[2]).then(jsonData => {
 				const {valid, errorMsg} = validateJson(
 					jsonData,
 					cli.input[1] as 'workflow' | 'plugin'
